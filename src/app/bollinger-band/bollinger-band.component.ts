@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class BollingerBandComponent {
   title = 'Bollinger Band Component';
+
+  
 }
