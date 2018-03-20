@@ -45,7 +45,7 @@ export class BinanceBollingerBandComponent implements OnInit{
                     candlestickBars => {
                         //console.log(JSON.stringify(candlestickBars[0]));
                         let bb = this.calcBollingerBand(tp, candlestickBars);
-                        console.log(JSON.stringify(bb));
+                        //console.log(JSON.stringify(bb));
                         if(bb != null)
                             this.bollingerBands.push(bb);
                     }
