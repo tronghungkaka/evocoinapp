@@ -15,7 +15,7 @@ export class Service {
     get<T>(pattern: string): Observable<T> {
         return this.http.get<T>(this.url + pattern)
             .pipe(
-                tap(T => console.log(JSON.stringify(T)))
+                //tap(T => console.log(JSON.stringify(T)))
             );
     }
 }

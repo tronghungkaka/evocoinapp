@@ -1,10 +1,16 @@
 export class BollingerBand {
     exchange: string;
     symbol: string;
+    currencySymbol: string;
+    baseCurrencySymbol: string;
     lastPrice: number;
     upperBollingerBand: number;
     simpleMovingAverage: number;
     lowerBollingerBand: number;
+    percentage: number = null;
+
+    static NUMBER_OF_CANDLESTICK_BARS = 20;
+    static FACTOR = 2;
 
     constructor() {
 
@@ -23,14 +29,15 @@ export class BollingerBand {
     }
 
     getPercentage(): number {
-        let percentage;
+        if(this.percentage != null)
+            return this.percentage;
         if(this.isOutOfLowerBollingerBand()) {
-            percentage = (this.lowerBollingerBand - this.lastPrice) / this.lowerBollingerBand;
+            this.percentage = (this.lowerBollingerBand - this.lastPrice) / this.lowerBollingerBand;
         }
         else if(this.isOutOfUpperBollingerBand()) {
-            percentage = (this.lastPrice - this.upperBollingerBand) / this.upperBollingerBand;
+            this.percentage = (this.lastPrice - this.upperBollingerBand) / this.upperBollingerBand;
         }
-        return percentage;
+        return this.percentage;
     }
 
     getExchange(): string {
@@ -47,6 +54,22 @@ export class BollingerBand {
 
     setSymbol(symbol: string): void {
         this.symbol = symbol;
+        if(symbol.includes('BTC')) {
+            this.currencySymbol = symbol.substring(0, symbol.length - 3);
+            this.baseCurrencySymbol = 'BTC';
+        }
+        else if(symbol.includes('ETH')) {
+            this.currencySymbol = symbol.substring(0, symbol.length - 3);
+            this.baseCurrencySymbol = 'ETH';
+        }
+        else if(symbol.includes('BNB')) {
+            this.currencySymbol = symbol.substring(0, symbol.length - 3);
+            this.baseCurrencySymbol = 'BNB';
+        }
+        else if(symbol.includes('USDT')) {
+            this.currencySymbol = symbol.substring(0, symbol.length - 4);
+            this.baseCurrencySymbol = 'USDT';
+        }
     }
 
     getLastPrice(): number {
