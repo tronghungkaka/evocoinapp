@@ -1,49 +1,44 @@
-//Install express server
-const express = require('express');
-const app = express();
+// Listen on a specific host via the HOST environment variable
+var host = process.env.HOST || '0.0.0.0';
+// Listen on a specific port via the PORT environment variable
+var port = process.env.PORT || 8080;
 
-var httpProxy = require('http-proxy');
-
-var proxy = httpProxy.createProxyServer({});
-
-function apiProxy(host, port) {
-  return function(req, res, next) {
-    if(req.url.match(new RegExp('^\/api\/'))) {
-      proxy.proxyRequest(req, res, {host: host, port: port});
-    } else {
-      next();
-    }
+// Grab the blacklist from the command-line so that we can update the blacklist without deploying
+// again. CORS Anywhere is open by design, and this blacklist is not used, except for countering
+// immediate abuse (e.g. denial of service). If you want to block all origins except for some,
+// use originWhitelist instead.
+var originBlacklist = parseEnvList(process.env.CORSANYWHERE_BLACKLIST);
+var originWhitelist = parseEnvList(process.env.CORSANYWHERE_WHITELIST);
+function parseEnvList(env) {
+  if (!env) {
+    return [];
   }
+  return env.split(',');
 }
 
-var cors = require('cors');
-app.use(cors());
+// Set up rate-limiting to avoid abuse of the public CORS Anywhere server.
+var checkRateLimit = require('./lib/rate-limit')(process.env.CORSANYWHERE_RATELIMIT);
 
-// Add headers
-app.use(function (req, res, next) {
-
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'https://api.binance.com');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
+var cors_proxy = require('./lib/cors-anywhere');
+cors_proxy.createServer({
+  originBlacklist: originBlacklist,
+  originWhitelist: originWhitelist,
+  requireHeader: ['origin', 'x-requested-with'],
+  checkRateLimit: checkRateLimit,
+  removeHeaders: [
+    'cookie',
+    'cookie2',
+    // Strip Heroku-specific headers
+    'x-heroku-queue-wait-time',
+    'x-heroku-queue-depth',
+    'x-heroku-dynos-in-use',
+    'x-request-start',
+  ],
+  redirectSameOrigin: true,
+  httpProxyOptions: {
+    // Do not add X-Forwarded-For, etc. headers, because Heroku already adds it.
+    xfwd: false,
+  },
+}).listen(port, host, function() {
+  console.log('Running CORS Anywhere on ' + host + ':' + port);
 });
-
-
-app.use(apiProxy('https://api.binance.com', 8080));
-
-//Serve only static files from dist directory
-app.use(express.static(__dirname + '/dist'));
-
-//Start the app by listening default Heroku port
-app.listen(process.env.PORT || 8080);
