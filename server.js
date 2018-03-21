@@ -40,7 +40,7 @@ app.use(function (req, res, next) {
 });
 
 
-app.use(apiProxy('localhost', 3000));
+app.use(apiProxy('https://api.binance.com', 8080));
 
 //Serve only static files from dist directory
 app.use(express.static(__dirname + '/dist'));
