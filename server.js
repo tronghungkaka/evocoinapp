@@ -2,6 +2,8 @@
 const express = require('express');
 const app = express();
 
+var httpProxy = require('http-proxy');
+
 var proxy = httpProxy.createProxyServer({});
 
 function apiProxy(host, port) {
