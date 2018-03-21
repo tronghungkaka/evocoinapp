@@ -8,6 +8,8 @@ import { Candlestick } from '../api/client/domain/market/candlestick';
 import { CandlestickInterval } from '../api/client/domain/market/candlestick-interval';
 import { BollingerBand } from '../../objects/bollinger-band';
 
+// import { NgModel } from '@angular/forms';
+
 @Component({
     selector: 'app-binance-bollinger-band',
     templateUrl: './binance-bollinger-band.component.html',
@@ -29,10 +31,16 @@ export class BinanceBollingerBandComponent implements OnInit{
     ) { }
 
     ngOnInit() {
+        this.func();
+        // CandlestickInner[] candlesticks = this.candlestickService.getCandlestickBars()
+    }
+
+    func() {
+        //console.log(this.timeFrame);
+        this.bollingerBands = new Array();
         this.tickerPriceService.getAllPrices().subscribe(
             tickerPrices => this.showBollingerBands(tickerPrices)//.filter(item => item.symbol.includes("BTC")))
         );
-        // CandlestickInner[] candlesticks = this.candlestickService.getCandlestickBars()
     }
 
     showBollingerBands(tickerPrices: TickerPrice[]): void {
@@ -40,6 +48,7 @@ export class BinanceBollingerBandComponent implements OnInit{
         //console.log(JSON.stringify(tickerPrices.length));
         //let bollingerBands: BollingerBand[] = new Array();
         for(let tp of tickerPrices) {
+            //console.log("timeFrame to string " + CandlestickInterval.getInterval(this.timeFrame));
             this.candlestickService.getCandlestickBars(tp.symbol, CandlestickInterval.getInterval(this.timeFrame), 20, null, null)
                 .subscribe(
                     candlestickBars => {

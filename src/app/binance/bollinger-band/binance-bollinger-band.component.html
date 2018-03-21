@@ -1,5 +1,15 @@
 <h2>{{title}}</h2>
 <div>
+    <select [(ngModel)]="timeFrame" (ngModelChange)="func()">
+        <option value="300">5m</option>
+        <option value="1800">30m</option>
+        <option value="3600">1h</option>
+        <option value="14400">4h</option>
+        <option value="86400">1d</option>
+        <option value="604800">1w</option>
+    </select>
+</div>
+<div>
     <ul>
         <li *ngFor="let bb of bollingerBands">
             <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank" >{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>

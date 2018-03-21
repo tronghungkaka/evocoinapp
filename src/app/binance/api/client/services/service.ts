@@ -14,7 +14,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class Service {
-    private url = 'https://api.binance.com';
+    private url = '';//'https://api.binance.com';
 
     constructor(
         private http: HttpClient

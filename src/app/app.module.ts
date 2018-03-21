@@ -13,6 +13,9 @@ import { HomeComponent } from './home/home.component';
 import { BinanceBollingerBandComponent } from './binance/bollinger-band/binance-bollinger-band.component';
 import { BollingerBandComponent } from './bollinger-band/bollinger-band.component';
 
+import { FormsModule } from '@angular/forms';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +26,8 @@ import { BollingerBandComponent } from './bollinger-band/bollinger-band.componen
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [Service, CandlestickService, TickerPriceService, ServerTimeService],
   bootstrap: [AppComponent]

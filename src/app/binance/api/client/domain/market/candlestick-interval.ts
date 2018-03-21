@@ -20,68 +20,36 @@ export class CandlestickInterval {
 
     static getInterval(interval: number): string {
         let value: string = '';
-        switch(interval) {
-        case CandlestickIntervalMilis.ONE_MINUTE:
+        if(interval == CandlestickIntervalMilis.ONE_MINUTE)
             value = this.ONE_MINUTE;
-            break;
-
-        case CandlestickIntervalMilis.THREE_MINUTES:
+        else if (interval == CandlestickIntervalMilis.THREE_MINUTES)
             value = this.THREE_MINUTES;
-            break;
-
-        case CandlestickIntervalMilis.FIVE_MINUTES:
+        else if (interval == CandlestickIntervalMilis.FIVE_MINUTES)
             value = this.FIVE_MINUTES;
-            break;
-
-        case CandlestickIntervalMilis.FIFTEEN_MINUTES:
+        else if (interval ==  CandlestickIntervalMilis.FIFTEEN_MINUTES)
             value = this.FIFTEEN_MINUTES;
-            break;
-
-        case CandlestickIntervalMilis.HALF_HOURLY:
+        else if (interval == CandlestickIntervalMilis.HALF_HOURLY)
             value = this.HALF_HOURLY;
-            break;
-
-        case CandlestickIntervalMilis.HOURLY:
+        else if (interval == CandlestickIntervalMilis.HOURLY)
             value = this.HOURLY;
-            break;
-
-        case CandlestickIntervalMilis.TWO_HOURLY:
+        else if (interval == CandlestickIntervalMilis.TWO_HOURLY)
             value = this.TWO_HOURLY;
-            break;
-
-        case CandlestickIntervalMilis.FOUR_HOURLY:
+        else if (interval == CandlestickIntervalMilis.FOUR_HOURLY)
             value = this.FOUR_HOURLY;
-            break;
-
-        case CandlestickIntervalMilis.SIX_HOURLY:
+        else if (interval ==  CandlestickIntervalMilis.SIX_HOURLY)
             value = this.SIX_HOURLY;
-            break;
-
-        case CandlestickIntervalMilis.EIGHT_HOURLY:
+        else if (interval ==  CandlestickIntervalMilis.EIGHT_HOURLY)
             value = this.EIGHT_HOURLY;
-            break;
-
-        case CandlestickIntervalMilis.TWELVE_HOURLY:
+        else if (interval ==  CandlestickIntervalMilis.TWELVE_HOURLY)
             value = this.TWELVE_HOURLY;
-            break;
-
-        case CandlestickIntervalMilis.DAILY:
+        else if (interval ==  CandlestickIntervalMilis.DAILY)
             value = this.DAILY;
-            break;
-
-        case CandlestickIntervalMilis.THREE_DAILY:
+        else if (interval ==  CandlestickIntervalMilis.THREE_DAILY)
             value = this.THREE_DAILY;
-            break;
-
-        case CandlestickIntervalMilis.WEEKLY:
+        else if (interval ==  CandlestickIntervalMilis.WEEKLY)
             value = this.WEEKLY;
-            break;
-
-        case CandlestickIntervalMilis.MONTHLY:
+        else if (interval ==  CandlestickIntervalMilis.MONTHLY)
             value = this.MONTHLY;
-            break;
-        }
-
         return value;
     }
 }
