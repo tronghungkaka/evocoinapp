@@ -1,3 +1,6 @@
+const express = require('express');
+const app = express();
+
 // Listen on a specific host via the HOST environment variable
 var host = process.env.HOST || '0.0.0.0';
 // Listen on a specific port via the PORT environment variable
@@ -42,3 +45,9 @@ cors_proxy.createServer({
 }).listen(port, host, function() {
   console.log('Running CORS Anywhere on ' + host + ':' + port);
 });
+
+//Serve only static files from dist directory
+app.use(express.static(__dirname + '/dist'));
+
+//Start the app by listening default Heroku port
+app.listen(process.env.PORT || 8080);
