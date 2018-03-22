@@ -1,0 +1,23 @@
+.select-style {
+    border: 1px solid #ccc;
+    width: 150px;
+    height: 50px;
+    border-radius: 3px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #fafafa no-repeat 90% 50%;
+}
+
+.select-style select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
+}

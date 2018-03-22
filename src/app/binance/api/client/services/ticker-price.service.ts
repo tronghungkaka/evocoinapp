@@ -18,7 +18,8 @@ export class TickerPriceService {
     }
 
     getPrice(symbol: string): Observable<TickerPriceInner> {
-        let pattern = '?symbol=' + symbol;
+        // let pattern = '?symbol=' + symbol;
+        let pattern = '/' + symbol;
         return this.service.get(this.tickerPriceUrl + pattern);
     }
 }

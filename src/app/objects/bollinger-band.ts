@@ -19,31 +19,32 @@ export class BollingerBand {
 
     }
 
-    isOutOfupperBB(): boolean {
-        // if(this.lastPrice > this.upperBB)
-        //     return true;
-        // return false;
-        return this.outOfUpperBollingerBand;
+    isOutOfUpperBollingerBand(): boolean {
+        if(this.lastPrice > this.upperBB)
+            return true;
+        return false;
+        // return this.outOfUpperBollingerBand;
     }
 
-    isOutOflowerBB(): boolean {
-        // if(this.lastPrice < this.lowerBB)
-        //     return true;
-        // return false;
-        return this.outOfLowerBollingerBand;
+    isOutOfLowerBollingerBand(): boolean {
+        if(this.lastPrice < this.lowerBB)
+            return true;
+        return false;
+        // return this.outOfLowerBollingerBand;
     }
 
     getPercentage(): number {
-        // if(this.percentage != null)
-        //     return this.percentage;
-        // if(this.isOutOflowerBB()) {
-        //     this.percentage = (this.lowerBB - this.lastPrice) / this.lowerBB;
-        // }
-        // else if(this.isOutOfupperBB()) {
-        //     this.percentage = (this.lastPrice - this.upperBB) / this.upperBB;
-        // }
-        // return this.percentage;
+        if(this.percentage != null)
+            return this.percentage;
+        if(this.isOutOfLowerBollingerBand()) {
+            this.percentage = (this.lowerBB - this.lastPrice) / this.lowerBB;
+        }
+        else if(this.isOutOfUpperBollingerBand()) {
+            this.percentage = (this.lastPrice - this.upperBB) / this.upperBB;
+        }
+        this.percentage *= 100;
         return this.percentage;
+        // return this.percentage;
     }
 
     getExchange(): string {
@@ -90,15 +91,15 @@ export class BollingerBand {
         return this.upperBB;
     }
 
-    setupperBB(upperBB: number): void {
+    setUpperBollingerBand(upperBB: number): void {
         this.upperBB = upperBB;
     }
 
-    getsgetSimpleMovingAveragema(): number {
+    getSimpleMovingAverage(): number {
         return this.sma;
     }
 
-    setSimpleMovingAveragema(sma: number): void {
+    setSimpleMovingAverage(sma: number): void {
         this.sma = sma;
     }
 
@@ -106,7 +107,7 @@ export class BollingerBand {
         return this.lowerBB;
     }
 
-    setlowerBB(lowerBB: number): void {
+    setLowerBollingerBand(lowerBB: number): void {
         this.lowerBB = lowerBB;
     }
 }

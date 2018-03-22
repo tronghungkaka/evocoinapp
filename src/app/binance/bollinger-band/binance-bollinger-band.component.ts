@@ -24,7 +24,7 @@ export class BinanceBollingerBandComponent implements OnInit{
 
     exchange: Exchange = Exchange.BINANCE;
 
-    bollingerBands: BollingerBand[];
+    // bollingerBands: BollingerBand[];
 
     bollingerbandResponse: BollingerBandResponse;
     
@@ -36,22 +36,23 @@ export class BinanceBollingerBandComponent implements OnInit{
     ) { }
 
     ngOnInit() {
-        this.bollingerbandResponse = new BollingerBandResponse();
         this.func();
         // CandlestickInner[] candlesticks = this.candlestickService.getCandlestickBars()
     }
 
     func() {
-        // //console.log(this.timeFrame);
+        console.log(this.timeFrame);
         // this.bollingerBands = new Array();
-        // this.tickerPriceService.getAllPrices().subscribe(
-        //     tickerPrices => this.showBollingerBands(tickerPrices)//.filter(item => item.symbol.includes("BTC")))
-        // );
-
-        let uri = "/api/bollingerband/binance/" + CandlestickInterval.getInterval(this.timeFrame);
-        this.service.get<BollingerBandResponse>(uri).subscribe(
-            data => this.bollingerbandResponse = data
+        this.bollingerbandResponse = new BollingerBandResponse();
+        this.tickerPriceService.getAllPrices().subscribe(
+            tickerPrices => //console.log(JSON.stringify(tickerPrices))
+                this.showBollingerBands(tickerPrices)//.filter(item => item.symbol.includes("BTC")))
         );
+
+        // let uri = "/api/bollingerband/binance/" + CandlestickInterval.getInterval(this.timeFrame);
+        // this.service.get<BollingerBandResponse>(uri).subscribe(
+        //     data => this.bollingerbandResponse = data
+        // );
     }
 
     showBollingerBands(tickerPrices: TickerPrice[]): void {
@@ -65,9 +66,14 @@ export class BinanceBollingerBandComponent implements OnInit{
                     candlestickBars => {
                         //console.log(JSON.stringify(candlestickBars[0]));
                         let bb = this.calcBollingerBand(tp, candlestickBars);
-                        //console.log(JSON.stringify(bb));
-                        if(bb != null)
-                            this.bollingerBands.push(bb);
+                        // console.log(JSON.stringify(bb));
+                        if(bb != null) {
+                            if(bb.isOutOfLowerBollingerBand())
+                                this.bollingerbandResponse.OutOfLowerBB.push(bb);
+                            else if(bb.isOutOfUpperBollingerBand())
+                                this.bollingerbandResponse.OutOfUpperBB.push(bb);
+                        }
+                            // this.bollingerBands.push(bb);
                     }
                 );
         }
@@ -86,23 +92,23 @@ export class BinanceBollingerBandComponent implements OnInit{
     }
 
     calcBollingerBand(tickerPrice: TickerPrice, candlestickBars: number[][]): BollingerBand {
-        // let closePrices: number[] = new Array();
-        // for(let cdstBar of candlestickBars) {
-        //     closePrices.push(cdstBar[4] * 100000000);
-        // }
-        // //console.log(closePrices);
-        // let bb = new BollingerBand();
-        // bb.setExchange('binance');
-        // bb.setSymbol(tickerPrice.symbol);
-        // bb.setLastPrice(tickerPrice.price * 100000000);
-        // bb.setSimpleMovingAverage(this.calcSimpleMovingAverage(closePrices));
-        // //console.log('sma = ' + bb.simpleMovingAverage);
-        // let stdDeviation = this.calcStandardDeviation(closePrices);
-        // bb.setUpperBollingerBand(bb.getSimpleMovingAverage() + (stdDeviation * BollingerBand.FACTOR));
-        // bb.setLowerBollingerBand(bb.getSimpleMovingAverage() - (stdDeviation * BollingerBand.FACTOR));
-        // //console.log('last price=' + bb.lastPrice + ' ' + bb.upperBollingerBand + ' ' + bb.lowerBollingerBand);
-        // if(bb.isOutOfLowerBollingerBand() || bb.isOutOfUpperBollingerBand())
-        //     return bb;
+        let closePrices: number[] = new Array();
+        for(let cdstBar of candlestickBars) {
+            closePrices.push(cdstBar[4] * 100000000);
+        }
+        //console.log(closePrices);
+        let bb = new BollingerBand();
+        bb.setExchange('binance');
+        bb.setSymbol(tickerPrice.symbol);
+        bb.setLastPrice(tickerPrice.price * 100000000);
+        bb.setSimpleMovingAverage(this.calcSimpleMovingAverage(closePrices));
+        //console.log('sma = ' + bb.simpleMovingAverage);
+        let stdDeviation = this.calcStandardDeviation(closePrices);
+        bb.setUpperBollingerBand(bb.getSimpleMovingAverage() + (stdDeviation * BollingerBand.FACTOR));
+        bb.setLowerBollingerBand(bb.getSimpleMovingAverage() - (stdDeviation * BollingerBand.FACTOR));
+        //console.log('last price=' + bb.lastPrice + ' ' + bb.upperBollingerBand + ' ' + bb.lowerBollingerBand);
+        if(bb.isOutOfLowerBollingerBand() || bb.isOutOfUpperBollingerBand())
+            return bb;
         return null;
     }
 

@@ -17,15 +17,25 @@ export class CandlestickService {
     getCandlestickBars(symbol: string, interval: string, limit: number, startTime: number, endTime: number)
         : Observable<number[][]> {
             let pattern = '';
-            pattern += '?symbol=' + symbol + '&interval=' + interval;
+            // pattern += '?symbol=' + symbol + '&interval=' + interval;
+            // if(limit != null) {
+            //     pattern += '&limit=' + limit;
+            // }
+            // if(startTime != null) {
+            //     pattern += '&startTime=' + startTime;
+            // }
+            // if(endTime != null) {
+            //     pattern += '&endTime=' + endTime;
+            // }
+            pattern += '/' + symbol + '/' + interval;
             if(limit != null) {
-                pattern += '&limit=' + limit;
+                pattern += '/' + limit;
             }
             if(startTime != null) {
-                pattern += '&startTime=' + startTime;
+                pattern += '/' + startTime;
             }
             if(endTime != null) {
-                pattern += '&endTime=' + endTime;
+                pattern += '/' + endTime;
             }
             //console.log(JSON.stringify(pattern));
             return this.service.get(this.candlestickUrl + pattern);
