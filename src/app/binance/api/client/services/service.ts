@@ -30,4 +30,8 @@ export class Service {
     gettest(url: string): Observable<string> {
         return this.http.get<string>(url);
     }
+
+    getBollingerBand(): Observable<T> {
+        
+    }
 }

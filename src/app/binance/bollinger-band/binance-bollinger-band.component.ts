@@ -38,9 +38,11 @@ export class BinanceBollingerBandComponent implements OnInit{
     func() {
         //console.log(this.timeFrame);
         this.bollingerBands = new Array();
-        this.tickerPriceService.getAllPrices().subscribe(
-            tickerPrices => this.showBollingerBands(tickerPrices)//.filter(item => item.symbol.includes("BTC")))
-        );
+        // this.tickerPriceService.getAllPrices().subscribe(
+        //     tickerPrices => this.showBollingerBands(tickerPrices)//.filter(item => item.symbol.includes("BTC")))
+        // );
+
+        
     }
 
     showBollingerBands(tickerPrices: TickerPrice[]): void {
