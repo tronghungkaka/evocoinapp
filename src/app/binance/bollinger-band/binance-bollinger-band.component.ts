@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CandlestickService } from '../api/client/services/candlestick.service';
 import { TickerPriceService } from '../api/client/services/ticker-price.service';
 import { ServerTimeService } from '../api/client/services/server-time.service';
+import { Service } from '../api/client/services/service';
 
 import { TickerPrice } from '../api/client/domain/market/ticker-price';
 import { Candlestick } from '../api/client/domain/market/candlestick';
 import { CandlestickInterval } from '../api/client/domain/market/candlestick-interval';
 import { BollingerBand } from '../../objects/bollinger-band';
+import { BollingerBandResponse } from '../../objects/bollinger-band-response';
 
 // import { NgModel } from '@angular/forms';
 
@@ -22,27 +24,34 @@ export class BinanceBollingerBandComponent implements OnInit{
 
     exchange: Exchange = Exchange.BINANCE;
 
-    bollingerBands: BollingerBand[] = new Array();
+    bollingerBands: BollingerBand[];
+
+    bollingerbandResponse: BollingerBandResponse;
     
     constructor(
       private candlestickService: CandlestickService,
       private tickerPriceService: TickerPriceService,
-      private serverTimeService: ServerTimeService
+      private serverTimeService: ServerTimeService,
+      private service: Service
     ) { }
 
     ngOnInit() {
+        this.bollingerbandResponse = new BollingerBandResponse();
         this.func();
         // CandlestickInner[] candlesticks = this.candlestickService.getCandlestickBars()
     }
 
     func() {
-        //console.log(this.timeFrame);
-        this.bollingerBands = new Array();
+        // //console.log(this.timeFrame);
+        // this.bollingerBands = new Array();
         // this.tickerPriceService.getAllPrices().subscribe(
         //     tickerPrices => this.showBollingerBands(tickerPrices)//.filter(item => item.symbol.includes("BTC")))
         // );
 
-        
+        let uri = "/api/bollingerband/binance/" + CandlestickInterval.getInterval(this.timeFrame);
+        this.service.get<BollingerBandResponse>(uri).subscribe(
+            data => this.bollingerbandResponse = data
+        );
     }
 
     showBollingerBands(tickerPrices: TickerPrice[]): void {
@@ -77,23 +86,23 @@ export class BinanceBollingerBandComponent implements OnInit{
     }
 
     calcBollingerBand(tickerPrice: TickerPrice, candlestickBars: number[][]): BollingerBand {
-        let closePrices: number[] = new Array();
-        for(let cdstBar of candlestickBars) {
-            closePrices.push(cdstBar[4] * 100000000);
-        }
-        //console.log(closePrices);
-        let bb = new BollingerBand();
-        bb.setExchange('binance');
-        bb.setSymbol(tickerPrice.symbol);
-        bb.setLastPrice(tickerPrice.price * 100000000);
-        bb.setSimpleMovingAverage(this.calcSimpleMovingAverage(closePrices));
-        //console.log('sma = ' + bb.simpleMovingAverage);
-        let stdDeviation = this.calcStandardDeviation(closePrices);
-        bb.setUpperBollingerBand(bb.getSimpleMovingAverage() + (stdDeviation * BollingerBand.FACTOR));
-        bb.setLowerBollingerBand(bb.getSimpleMovingAverage() - (stdDeviation * BollingerBand.FACTOR));
-        //console.log('last price=' + bb.lastPrice + ' ' + bb.upperBollingerBand + ' ' + bb.lowerBollingerBand);
-        if(bb.isOutOfLowerBollingerBand() || bb.isOutOfUpperBollingerBand())
-            return bb;
+        // let closePrices: number[] = new Array();
+        // for(let cdstBar of candlestickBars) {
+        //     closePrices.push(cdstBar[4] * 100000000);
+        // }
+        // //console.log(closePrices);
+        // let bb = new BollingerBand();
+        // bb.setExchange('binance');
+        // bb.setSymbol(tickerPrice.symbol);
+        // bb.setLastPrice(tickerPrice.price * 100000000);
+        // bb.setSimpleMovingAverage(this.calcSimpleMovingAverage(closePrices));
+        // //console.log('sma = ' + bb.simpleMovingAverage);
+        // let stdDeviation = this.calcStandardDeviation(closePrices);
+        // bb.setUpperBollingerBand(bb.getSimpleMovingAverage() + (stdDeviation * BollingerBand.FACTOR));
+        // bb.setLowerBollingerBand(bb.getSimpleMovingAverage() - (stdDeviation * BollingerBand.FACTOR));
+        // //console.log('last price=' + bb.lastPrice + ' ' + bb.upperBollingerBand + ' ' + bb.lowerBollingerBand);
+        // if(bb.isOutOfLowerBollingerBand() || bb.isOutOfUpperBollingerBand())
+        //     return bb;
         return null;
     }
 

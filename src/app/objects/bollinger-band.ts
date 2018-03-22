@@ -4,10 +4,13 @@ export class BollingerBand {
     currencySymbol: string;
     baseCurrencySymbol: string;
     lastPrice: number;
-    upperBollingerBand: number;
-    simpleMovingAverage: number;
-    lowerBollingerBand: number;
+    upperBB: number;
+    sma: number;
+    lowerBB: number;
     percentage: number = null;
+    outOfBands: boolean;
+    outOfLowerBollingerBand: boolean;
+    outOfUpperBollingerBand: boolean;
 
     static NUMBER_OF_CANDLESTICK_BARS = 20;
     static FACTOR = 2;
@@ -16,27 +19,30 @@ export class BollingerBand {
 
     }
 
-    isOutOfUpperBollingerBand(): boolean {
-        if(this.lastPrice > this.upperBollingerBand)
-            return true;
-        return false;
+    isOutOfupperBB(): boolean {
+        // if(this.lastPrice > this.upperBB)
+        //     return true;
+        // return false;
+        return this.outOfUpperBollingerBand;
     }
 
-    isOutOfLowerBollingerBand(): boolean {
-        if(this.lastPrice < this.lowerBollingerBand)
-            return true;
-        return false;
+    isOutOflowerBB(): boolean {
+        // if(this.lastPrice < this.lowerBB)
+        //     return true;
+        // return false;
+        return this.outOfLowerBollingerBand;
     }
 
     getPercentage(): number {
-        if(this.percentage != null)
-            return this.percentage;
-        if(this.isOutOfLowerBollingerBand()) {
-            this.percentage = (this.lowerBollingerBand - this.lastPrice) / this.lowerBollingerBand;
-        }
-        else if(this.isOutOfUpperBollingerBand()) {
-            this.percentage = (this.lastPrice - this.upperBollingerBand) / this.upperBollingerBand;
-        }
+        // if(this.percentage != null)
+        //     return this.percentage;
+        // if(this.isOutOflowerBB()) {
+        //     this.percentage = (this.lowerBB - this.lastPrice) / this.lowerBB;
+        // }
+        // else if(this.isOutOfupperBB()) {
+        //     this.percentage = (this.lastPrice - this.upperBB) / this.upperBB;
+        // }
+        // return this.percentage;
         return this.percentage;
     }
 
@@ -80,27 +86,27 @@ export class BollingerBand {
         this.lastPrice = lastPrice;
     }
 
-    getUpperBollingerBand(): number {
-        return this.upperBollingerBand;
+    getupperBB(): number {
+        return this.upperBB;
     }
 
-    setUpperBollingerBand(upperBollingerBand: number): void {
-        this.upperBollingerBand = upperBollingerBand;
+    setupperBB(upperBB: number): void {
+        this.upperBB = upperBB;
     }
 
-    getSimpleMovingAverage(): number {
-        return this.simpleMovingAverage;
+    getsgetSimpleMovingAveragema(): number {
+        return this.sma;
     }
 
-    setSimpleMovingAverage(simpleMovingAverage: number): void {
-        this.simpleMovingAverage = simpleMovingAverage;
+    setSimpleMovingAveragema(sma: number): void {
+        this.sma = sma;
     }
 
-    getLowerBollingerBand(): number {
-        return this.lowerBollingerBand;
+    getlowerBB(): number {
+        return this.lowerBB;
     }
 
-    setLowerBollingerBand(lowerBollingerBand: number): void {
-        this.lowerBollingerBand = lowerBollingerBand;
+    setlowerBB(lowerBB: number): void {
+        this.lowerBB = lowerBB;
     }
 }

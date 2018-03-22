@@ -3,35 +3,27 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { catchError, map, tap } from 'rxjs/operators';
+import 'rxjs/add/operator/timeout';
 
-// const httpOptions = {
-//     headers: new HttpHeaders({ 
-//         'Access-Control-Allow-Origin': 'https://api.binance.com',
-//         'Access-Control-Allow-Credentials': 'true',
-//         'Access-Control-Expose-Headers': 'FooBar'
-//     })
-// };
+const httpOptions = {
+    headers: new HttpHeaders({
+        'timeout': '72000'
+    })
+};
 
 @Injectable()
 export class Service {
-    private url = 'https://api.binance.com';
+    private url = 'https://evotradingappserver.herokuapp.com';
 
     constructor(
         private http: HttpClient
     ) { }
 
     get<T>(pattern: string): Observable<T> {
-        return this.http.get<T>(this.url + pattern)
+        return this.http.get<T>(this.url + pattern, httpOptions)
+            .timeout(72000)
             .pipe(
                 //tap(T => console.log(JSON.stringify(T)))
             );
-    }
-
-    gettest(url: string): Observable<string> {
-        return this.http.get<string>(url);
-    }
-
-    getBollingerBand(): Observable<T> {
-        
     }
 }

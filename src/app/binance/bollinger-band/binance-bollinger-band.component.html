@@ -10,9 +10,25 @@
     </select>
 </div>
 <div>
+    <div>
+    <h5>Out of Upper Bollinger Band</h5>
+    <div *ngIf="bollingerbandResponse.OutOfUpperBB">
     <ul>
-        <li *ngFor="let bb of bollingerBands">
+        <li *ngFor="let bb of bollingerbandResponse.OutOfUpperBB">
             <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank" >{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
         </li>
     </ul>
+</div>
+    </div>
+
+    <div>
+    <h5>Out of Lower Bollinger Band</h5>
+    <div *ngIf="bollingerbandResponse.OutOfLowerBB">
+    <ul>
+        <li *ngFor="let bb of bollingerbandResponse.OutOfLowerBB">
+            <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank" >{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
+        </li>
+    </ul>
+</div>
+    </div>
 </div>
