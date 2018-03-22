@@ -13,7 +13,7 @@ const httpOptions = {
 
 @Injectable()
 export class Service {
-    private url = 'http://localhost:8080';//'https://evotradingappserver.herokuapp.com';
+    private url = 'https://evotradingappserver.herokuapp.com';
 
     constructor(
         private http: HttpClient
