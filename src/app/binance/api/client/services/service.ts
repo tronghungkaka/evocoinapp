@@ -26,4 +26,8 @@ export class Service {
                 //tap(T => console.log(JSON.stringify(T)))
             );
     }
+
+    gettest(url: string): Observable<string> {
+        return this.http.get<string>(url);
+    }
 }
