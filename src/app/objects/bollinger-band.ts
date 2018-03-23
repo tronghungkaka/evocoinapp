@@ -14,6 +14,12 @@ export class BollingerBand {
 
     static NUMBER_OF_CANDLESTICK_BARS = 20;
     static FACTOR = 2;
+    static SHATOSHI = 100000000;
+
+    stsLastPrice: number;
+    stsUpperBB: number;
+    stsSMA: number;
+    stsLowerBB: number;
 
     constructor() {
 
@@ -37,10 +43,10 @@ export class BollingerBand {
         if(this.percentage != null)
             return this.percentage;
         if(this.isOutOfLowerBollingerBand()) {
-            this.percentage = (this.lowerBB - this.lastPrice) / this.lowerBB;
+            this.percentage = (this.stsLowerBB - this.stsLastPrice) / this.stsLowerBB;
         }
         else if(this.isOutOfUpperBollingerBand()) {
-            this.percentage = (this.lastPrice - this.upperBB) / this.upperBB;
+            this.percentage = (this.stsLastPrice - this.stsUpperBB) / this.stsUpperBB;
         }
         this.percentage *= 100;
         return this.percentage;
@@ -85,6 +91,8 @@ export class BollingerBand {
 
     setLastPrice(lastPrice: number): void {
         this.lastPrice = lastPrice;
+        this.stsLastPrice = lastPrice * BollingerBand.SHATOSHI;
+        this.percentage = null;
     }
 
     getupperBB(): number {
@@ -93,6 +101,8 @@ export class BollingerBand {
 
     setUpperBollingerBand(upperBB: number): void {
         this.upperBB = upperBB;
+        this.stsUpperBB = upperBB * BollingerBand.SHATOSHI;
+        this.percentage = null;
     }
 
     getSimpleMovingAverage(): number {
@@ -101,6 +111,8 @@ export class BollingerBand {
 
     setSimpleMovingAverage(sma: number): void {
         this.sma = sma;
+        this.stsSMA = sma * BollingerBand.SHATOSHI;
+        this.percentage = null;
     }
 
     getlowerBB(): number {
@@ -109,5 +121,7 @@ export class BollingerBand {
 
     setLowerBollingerBand(lowerBB: number): void {
         this.lowerBB = lowerBB;
+        this.stsLowerBB = lowerBB * BollingerBand.SHATOSHI;
+        this.percentage = null;
     }
 }

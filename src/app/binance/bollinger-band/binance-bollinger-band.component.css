@@ -1,23 +1,46 @@
-.select-style {
-    border: 1px solid #ccc;
-    width: 250px;
-    height: 100px;
-    border-radius: 3px;
-    overflow: hidden;
+ul {
+    list-style-type: none;
+}
+
+.vl {
+    border-right: 6px solid green;
+}
+
+.sort {
     cursor: pointer;
-    background: #fafafa no-repeat 90% 50%;
+    border: 1px;
 }
 
-.select-style select {
-    padding: 5px 8px;
-    width: 130%;
-    border: none;
-    box-shadow: none;
-    background: transparent;
-    background-image: none;
-    -webkit-appearance: none;
+table th {
+    text-align: center;
+}
+table td {
+    text-align: center;
+}
+    
+i {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
 }
 
-.select-style select:focus {
-    outline: none;
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
 }

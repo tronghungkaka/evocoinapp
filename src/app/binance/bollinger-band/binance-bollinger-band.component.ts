@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { CandlestickService } from '../api/client/services/candlestick.service';
 import { TickerPriceService } from '../api/client/services/ticker-price.service';
 import { ServerTimeService } from '../api/client/services/server-time.service';
@@ -20,13 +20,31 @@ import { BollingerBandResponse } from '../../objects/bollinger-band-response';
 export class BinanceBollingerBandComponent implements OnInit{
     title = 'Binance Bollinger Band';
 
-    timeFrame: TimeFrame = TimeFrame.FIVE_MINUTES; // default value
+    timeFrame: TimeFrame = TimeFrame.HAFL_HOURLY; // default value
 
     exchange: Exchange = Exchange.BINANCE;
 
-    // bollingerBands: BollingerBand[];
+    outOfUpperBB_BTCs: BollingerBand[];
+    outOfUpperBB_ETHs: BollingerBand[];
+    outOfUpperBB_BNBs: BollingerBand[];
+    outOfUpperBB_USDTs: BollingerBand[];
 
-    bollingerbandResponse: BollingerBandResponse;
+    outOfLowerBB_BTCs: BollingerBand[];
+    outOfLowerBB_ETHs: BollingerBand[];
+    outOfLowerBB_BNBs: BollingerBand[];
+    outOfLowerBB_USDTs: BollingerBand[];
+
+    isAscSorted_outOfUpperBB_BTCs: Boolean = null;
+    isAscSorted_outOfUpperBB_ETHs: Boolean = null;
+    isAscSorted_outOfUpperBB_BNBs: Boolean = null;
+    isAscSorted_outOfUpperBB_USDTs: Boolean = null;
+
+    isAscSorted_outOfLowerBB_BTCs: Boolean = null;
+    isAscSorted_outOfLowerBB_ETHs: Boolean = null;
+    isAscSorted_outOfLowerBB_BNBs: Boolean = null;
+    isAscSorted_outOfLowerBB_USDTs: Boolean = null;
+
+    // bollingerbandResponse: BollingerBandResponse;
     
     constructor(
       private candlestickService: CandlestickService,
@@ -40,10 +58,22 @@ export class BinanceBollingerBandComponent implements OnInit{
         // CandlestickInner[] candlesticks = this.candlestickService.getCandlestickBars()
     }
 
+    initBBs() {
+        this.outOfUpperBB_BTCs = new Array();
+        this.outOfUpperBB_ETHs = new Array();
+        this.outOfUpperBB_BNBs = new Array();
+        this.outOfUpperBB_USDTs = new Array();
+    
+        this.outOfLowerBB_BTCs = new Array();
+        this.outOfLowerBB_ETHs = new Array();
+        this.outOfLowerBB_BNBs = new Array();
+        this.outOfLowerBB_USDTs = new Array();        
+    }
+
     func() {
         console.log(this.timeFrame);
-        // this.bollingerBands = new Array();
-        this.bollingerbandResponse = new BollingerBandResponse();
+        // this.bollingerbandResponse = new BollingerBandResponse();
+        this.initBBs();
         this.tickerPriceService.getAllPrices().subscribe(
             tickerPrices => //console.log(JSON.stringify(tickerPrices))
                 this.showBollingerBands(tickerPrices)//.filter(item => item.symbol.includes("BTC")))
@@ -66,12 +96,28 @@ export class BinanceBollingerBandComponent implements OnInit{
                     candlestickBars => {
                         //console.log(JSON.stringify(candlestickBars[0]));
                         let bb = this.calcBollingerBand(tp, candlestickBars);
-                        // console.log(JSON.stringify(bb));
                         if(bb != null) {
-                            if(bb.isOutOfLowerBollingerBand())
-                                this.bollingerbandResponse.OutOfLowerBB.push(bb);
-                            else if(bb.isOutOfUpperBollingerBand())
-                                this.bollingerbandResponse.OutOfUpperBB.push(bb);
+                            // console.log(JSON.stringify(bb.getPercentage()));
+                            if(bb.isOutOfLowerBollingerBand()) {
+                                if(bb.baseCurrencySymbol == "BTC")
+                                    this.outOfLowerBB_BTCs.push(bb);
+                                else if(bb.baseCurrencySymbol == "ETH")
+                                    this.outOfLowerBB_ETHs.push(bb);
+                                else if(bb.baseCurrencySymbol == "BNB")
+                                    this.outOfLowerBB_BNBs.push(bb);
+                                else
+                                    this.outOfLowerBB_USDTs.push(bb);
+                            }
+                            else if(bb.isOutOfUpperBollingerBand()) {
+                                if(bb.baseCurrencySymbol == "BTC")
+                                    this.outOfUpperBB_BTCs.push(bb);
+                                else if(bb.baseCurrencySymbol == "ETH")
+                                    this.outOfUpperBB_ETHs.push(bb);
+                                else if(bb.baseCurrencySymbol == "BNB")
+                                    this.outOfUpperBB_BNBs.push(bb);
+                                else
+                                    this.outOfUpperBB_USDTs.push(bb);
+                            }
                         }
                             // this.bollingerBands.push(bb);
                     }
@@ -81,26 +127,109 @@ export class BinanceBollingerBandComponent implements OnInit{
         //console.log(JSON.stringify(this.bollingerBands));
     }
 
-    private compareFn(a: BollingerBand, b: BollingerBand): number {
+    clickSortButton(bbIdx: number) {
+        console.log("bbIdx = " + bbIdx);
+        if(bbIdx == 4) {
+            if(this.isAscSorted_outOfLowerBB_BTCs == null)
+                this.isAscSorted_outOfLowerBB_BTCs = false;
+            this.sortBB(this.outOfLowerBB_BTCs, this.isAscSorted_outOfLowerBB_BTCs);
+            this.isAscSorted_outOfLowerBB_BTCs = !this.isAscSorted_outOfLowerBB_BTCs;
+        }
+        else if(bbIdx == 5) {
+            if(this.isAscSorted_outOfLowerBB_ETHs == null)
+            this.isAscSorted_outOfLowerBB_ETHs = false;
+            this.sortBB(this.outOfLowerBB_ETHs, this.isAscSorted_outOfLowerBB_ETHs);
+            this.isAscSorted_outOfLowerBB_ETHs = !this.isAscSorted_outOfLowerBB_ETHs;
+        }
+        else if(bbIdx == 6) {
+            if(this.isAscSorted_outOfLowerBB_BNBs == null)
+            this.isAscSorted_outOfLowerBB_BNBs = false;
+            this.sortBB(this.outOfLowerBB_BNBs, this.isAscSorted_outOfLowerBB_BNBs);
+            this.isAscSorted_outOfLowerBB_BNBs = !this.isAscSorted_outOfLowerBB_BNBs;
+        }
+        else if(bbIdx == 7) {
+            if(this.isAscSorted_outOfLowerBB_USDTs == null)
+            this.isAscSorted_outOfLowerBB_USDTs = false;
+            this.sortBB(this.outOfLowerBB_USDTs, this.isAscSorted_outOfLowerBB_USDTs);
+            this.isAscSorted_outOfLowerBB_USDTs = !this.isAscSorted_outOfLowerBB_USDTs;
+        }
+        else if(bbIdx == 0) {
+            if(this.isAscSorted_outOfUpperBB_BTCs == null)
+            this.isAscSorted_outOfUpperBB_BTCs = false;
+            this.sortBB(this.outOfUpperBB_BTCs, this.isAscSorted_outOfUpperBB_BTCs);
+            this.isAscSorted_outOfUpperBB_BTCs = !this.isAscSorted_outOfUpperBB_BTCs;
+        }
+        else if(bbIdx == 1) {
+            if(this.isAscSorted_outOfUpperBB_ETHs == null)
+            this.isAscSorted_outOfUpperBB_ETHs = false;
+            this.sortBB(this.outOfUpperBB_ETHs, this.isAscSorted_outOfUpperBB_ETHs);
+            this.isAscSorted_outOfUpperBB_ETHs = !this.isAscSorted_outOfUpperBB_ETHs;
+        }
+        else if(bbIdx == 2) {
+            if(this.isAscSorted_outOfUpperBB_BNBs == null)
+            this.isAscSorted_outOfUpperBB_BNBs = false;
+            this.sortBB(this.outOfUpperBB_BNBs, this.isAscSorted_outOfUpperBB_BNBs);
+            this.isAscSorted_outOfUpperBB_BNBs = !this.isAscSorted_outOfUpperBB_BNBs;
+        }
+        else if(bbIdx == 3) {
+            if(this.isAscSorted_outOfUpperBB_USDTs == null)
+            this.isAscSorted_outOfUpperBB_USDTs = false;
+            this.sortBB(this.outOfUpperBB_USDTs, this.isAscSorted_outOfUpperBB_USDTs);
+            this.isAscSorted_outOfUpperBB_USDTs = !this.isAscSorted_outOfUpperBB_USDTs;
+        }
+    }
+
+    sortBB(bbs: BollingerBand[], isAsc: Boolean) {
+        if(isAsc) {
+            bbs.sort(this.compareAscFn);
+            isAsc = false;
+        }
+        else {
+            bbs.sort(this.compareDesFn);
+            isAsc = true;
+        }
+    }
+
+    private compareAscFn(a: BollingerBand, b: BollingerBand): number {
         let aPercentage = a.getPercentage();
         let bPercentage = b.getPercentage();
         if(aPercentage > bPercentage)
             return 1;
         if(aPercentage < bPercentage)
             return -1;
+        
+        if(a.currencySymbol > b.currencySymbol)
+            return 1;
+        if(a.currencySymbol < b.currencySymbol)
+            return -1;
+        return 0;
+    }
+
+    private compareDesFn(a: BollingerBand, b: BollingerBand): number {
+        let aPercentage = a.getPercentage();
+        let bPercentage = b.getPercentage();
+        if(aPercentage > bPercentage)
+            return -1;
+        if(aPercentage < bPercentage)
+            return 1;
+
+        if(a.currencySymbol > b.currencySymbol)
+            return -1;
+        if(a.currencySymbol < b.currencySymbol)
+            return 1;
         return 0;
     }
 
     calcBollingerBand(tickerPrice: TickerPrice, candlestickBars: number[][]): BollingerBand {
         let closePrices: number[] = new Array();
         for(let cdstBar of candlestickBars) {
-            closePrices.push(cdstBar[4] * 100000000);
+            closePrices.push(cdstBar[4] * BollingerBand.SHATOSHI);
         }
         //console.log(closePrices);
         let bb = new BollingerBand();
         bb.setExchange('binance');
         bb.setSymbol(tickerPrice.symbol);
-        bb.setLastPrice(tickerPrice.price * 100000000);
+        bb.setLastPrice(tickerPrice.price * BollingerBand.SHATOSHI);
         bb.setSimpleMovingAverage(this.calcSimpleMovingAverage(closePrices));
         //console.log('sma = ' + bb.simpleMovingAverage);
         let stdDeviation = this.calcStandardDeviation(closePrices);
