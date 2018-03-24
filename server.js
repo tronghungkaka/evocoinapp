@@ -18,6 +18,7 @@ const forceSSL = function() {
         ['https://', req.get('Host'), req.url].join('')
       );
     }
+    next ();
   }
 }
 
