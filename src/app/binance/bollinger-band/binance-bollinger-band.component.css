@@ -1,9 +1,14 @@
 ul {
     list-style-type: none;
+    padding-left: 0px;
 }
 
-.vl {
+.rvline {
     border-right: 6px solid green;
+}
+
+.lvline {
+    border-left: 6px solid red;
 }
 
 .sort {
@@ -43,4 +48,23 @@ i {
 .down {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+.column {
+    float: left;
+    width: 25%;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Clear float after the column */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
 }

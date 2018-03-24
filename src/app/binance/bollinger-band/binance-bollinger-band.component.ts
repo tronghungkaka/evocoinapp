@@ -67,7 +67,17 @@ export class BinanceBollingerBandComponent implements OnInit{
         this.outOfLowerBB_BTCs = new Array();
         this.outOfLowerBB_ETHs = new Array();
         this.outOfLowerBB_BNBs = new Array();
-        this.outOfLowerBB_USDTs = new Array();        
+        this.outOfLowerBB_USDTs = new Array();
+
+        this.isAscSorted_outOfUpperBB_BTCs = null;
+        this.isAscSorted_outOfUpperBB_ETHs = null;
+        this.isAscSorted_outOfUpperBB_BNBs = null;
+        this.isAscSorted_outOfUpperBB_USDTs = null;
+
+        this.isAscSorted_outOfLowerBB_BTCs = null;
+        this.isAscSorted_outOfLowerBB_ETHs = null;
+        this.isAscSorted_outOfLowerBB_BNBs = null;
+        this.isAscSorted_outOfLowerBB_USDTs = null;      
     }
 
     func() {
@@ -125,6 +135,10 @@ export class BinanceBollingerBandComponent implements OnInit{
         }
         //this.bollingerBands = bollingerBands.sort(this.compareFn);
         //console.log(JSON.stringify(this.bollingerBands));
+    }
+
+    refresh() {
+        this.func();
     }
 
     clickSortButton(bbIdx: number) {

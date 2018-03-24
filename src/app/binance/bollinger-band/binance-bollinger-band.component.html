@@ -8,6 +8,10 @@
         <option value="86400">1d</option>
         <option value="604800">1w</option>
     </select>
+
+    <div style="float:right">
+        <button style="cursor:pointer; padding:5px;" (click)="refresh()">Refresh</button>
+    </div>
 </div>
 
 <hr>
@@ -39,123 +43,130 @@
 </div> -->
 
 <div style="width:100%">
-    <div style="float: left; width:45%; margin-right:50px" class="vl">
+    <div style="float: left; width:50%;" class="rvline">
         <h2 style="color:green; text-align: center">Out of Upper Bollinger Band</h2>
         <div style="overflow-x:auto;">
-            <table style="width:100%">
-                <tr>
-                        <th><div class="sort" (click)="clickSortButton(0)">BTC <i [ngClass]="{'right': isAscSorted_outOfUpperBB_BTCs == null, 'down': isAscSorted_outOfUpperBB_BTCs == true, 'up': isAscSorted_outOfUpperBB_BTCs == false}"></i></div></th>
-                        <th><div class="sort" (click)="clickSortButton(1)">ETH <i [ngClass]="{'right': isAscSorted_outOfUpperBB_ETHs == null, 'down': isAscSorted_outOfUpperBB_ETHs == true, 'up': isAscSorted_outOfUpperBB_ETHs == false}"></i></div></th>
-                        <th><div class="sort" (click)="clickSortButton(2)">BNB <i [ngClass]="{'right': isAscSorted_outOfUpperBB_BNBs == null, 'down': isAscSorted_outOfUpperBB_BNBs == true, 'up': isAscSorted_outOfUpperBB_BNBs == false}"></i></div></th>
-                        <th><div class="sort" (click)="clickSortButton(3)">USDT <i [ngClass]="{'right': isAscSorted_outOfUpperBB_USDTs == null, 'down': isAscSorted_outOfUpperBB_USDTs == true, 'up': isAscSorted_outOfUpperBB_USDTs == false}"></i></div></th>
-                </tr>
-                <tr>
-                    <td>
-                        <div *ngIf="outOfUpperBB_BTCs">
-                            <ul>
-                                <li *ngFor="let bb of outOfUpperBB_BTCs" style="margin:10px 10px 10px 10px">
-                                    {{bb.getPercentage() | number:'1.0-2'}}%
-                                    <br/>
-                                    <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="outOfUpperBB_BTCs">
-                            <ul>
-                                <li *ngFor="let bb of outOfUpperBB_ETHs" style="margin:10px 10px 10px 10px">
-                                    {{bb.getPercentage() | number:'1.0-2'}}%
-                                    <br/>
-                                    <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="outOfUpperBB_BTCs">
-                            <ul>
-                                <li *ngFor="let bb of outOfUpperBB_BNBs" style="margin:10px 10px 10px 10px">
-                                    {{bb.getPercentage() | number:'1.0-2'}}%
-                                    <br/>
-                                    <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="outOfUpperBB_BTCs">
-                            <ul>
-                                <li *ngFor="let bb of outOfUpperBB_USDTs" style="margin:10px 10px 10px 10px">
-                                    {{bb.getPercentage() | number:'1.0-2'}}%
-                                    <br/>
-                                    <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+            <div class="row">
+                <div class="column">
+                    <div class="sort" (click)="clickSortButton(0)">BTC
+                        <i [ngClass]="{'right': isAscSorted_outOfUpperBB_BTCs == null, 'down': isAscSorted_outOfUpperBB_BTCs == true, 'up': isAscSorted_outOfUpperBB_BTCs == false}"></i>
+                    </div>
+                    <div *ngIf="outOfUpperBB_BTCs">
+                        <ul>
+                            <li *ngFor="let bb of outOfUpperBB_BTCs" style="margin:10px 10px 10px 10px">
+                                {{bb.getPercentage() | number:'1.0-2'}}%
+                                <br/>
+                                <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="sort" (click)="clickSortButton(1)">ETH
+                        <i [ngClass]="{'right': isAscSorted_outOfUpperBB_ETHs == null, 'down': isAscSorted_outOfUpperBB_ETHs == true, 'up': isAscSorted_outOfUpperBB_ETHs == false}"></i>
+                    </div>
+                    <div *ngIf="outOfUpperBB_BTCs">
+                        <ul>
+                            <li *ngFor="let bb of outOfUpperBB_ETHs" style="margin:10px 10px 10px 10px">
+                                {{bb.getPercentage() | number:'1.0-2'}}%
+                                <br/>
+                                <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="sort" (click)="clickSortButton(2)">BNB
+                        <i [ngClass]="{'right': isAscSorted_outOfUpperBB_BNBs == null, 'down': isAscSorted_outOfUpperBB_BNBs == true, 'up': isAscSorted_outOfUpperBB_BNBs == false}"></i>
+                    </div>
+                    <div *ngIf="outOfUpperBB_BTCs">
+                        <ul>
+                            <li *ngFor="let bb of outOfUpperBB_BNBs" style="margin:10px 10px 10px 10px">
+                                {{bb.getPercentage() | number:'1.0-2'}}%
+                                <br/>
+                                <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="sort" (click)="clickSortButton(3)">USDT
+                        <i [ngClass]="{'right': isAscSorted_outOfUpperBB_USDTs == null, 'down': isAscSorted_outOfUpperBB_USDTs == true, 'up': isAscSorted_outOfUpperBB_USDTs == false}"></i>
+                    </div>
+                    <div *ngIf="outOfUpperBB_BTCs">
+                        <ul>
+                            <li *ngFor="let bb of outOfUpperBB_USDTs" style="margin:10px 10px 10px 10px">
+                                {{bb.getPercentage() | number:'1.0-2'}}%
+                                <br/>
+                                <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div style="float: left; width:45%; margin-left:10px;">
+    <div style="float: left; width:50%;" class="lvline">
         <h2 style="color:red; text-align: center">Out of Lower Bollinger Band</h2>
         <div style="overflow-x:auto;">
-            <table style="width:100%">
-                <tr>
-                    <th><div class="sort" (click)="clickSortButton(4)">BTC <i [ngClass]="{'right': isAscSorted_outOfLowerBB_BTCs == null, 'down': isAscSorted_outOfLowerBB_BTCs == true, 'up': isAscSorted_outOfLowerBB_BTCs == false}"></i></div></th>
-                    <th><div class="sort" (click)="clickSortButton(5)">ETH <i [ngClass]="{'right': isAscSorted_outOfLowerBB_ETHs == null, 'down': isAscSorted_outOfLowerBB_ETHs == true, 'up': isAscSorted_outOfLowerBB_ETHs == false}"></i></div></th>
-                    <th><div class="sort" (click)="clickSortButton(6)">BNB <i [ngClass]="{'right': isAscSorted_outOfLowerBB_BNBs == null, 'down': isAscSorted_outOfLowerBB_BNBs == true, 'up': isAscSorted_outOfLowerBB_BNBs == false}"></i></div></th>
-                    <th><div class="sort" (click)="clickSortButton(7)">USDT <i [ngClass]="{'right': isAscSorted_outOfLowerBB_USDTs == null, 'down': isAscSorted_outOfLowerBB_USDTs == true, 'up': isAscSorted_outOfLowerBB_USDTs == false}"></i></div></th>
-                </tr>
-                <tr>
-                    <td>
-                        <div *ngIf="outOfUpperBB_BTCs">
-                            <ul>
-                                <li *ngFor="let bb of outOfLowerBB_BTCs" style="margin:10px 10px 10px 10px">
-                                    {{bb.getPercentage() | number:'1.0-2'}}%
-                                    <br/>
-                                    <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="outOfUpperBB_BTCs">
-                            <ul>
-                                <li *ngFor="let bb of outOfLowerBB_ETHs" style="margin:10px 10px 10px 10px">
-                                    {{bb.getPercentage() | number:'1.0-2'}}%
-                                    <br/>
-                                    <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="outOfUpperBB_BTCs">
-                            <ul>
-                                <li *ngFor="let bb of outOfLowerBB_BNBs" style="margin:10px 10px 10px 10px">
-                                    {{bb.getPercentage() | number:'1.0-2'}}%
-                                    <br/>
-                                    <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="outOfUpperBB_BTCs">
-                            <ul>
-                                <li *ngFor="let bb of outOfLowerBB_USDTs" style="margin:10px 10px 10px 10px">
-                                    {{bb.getPercentage() | number:'1.0-2'}}%
-                                    <br/>
-                                    <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+            <div class="row">
+                <div class="column">
+                    <div class="sort" (click)="clickSortButton(4)">BTC
+                        <i [ngClass]="{'right': isAscSorted_outOfLowerBB_BTCs == null, 'down': isAscSorted_outOfLowerBB_BTCs == true, 'up': isAscSorted_outOfLowerBB_BTCs == false}"></i>
+                    </div>
+                    <div *ngIf="outOfUpperBB_BTCs">
+                        <ul>
+                            <li *ngFor="let bb of outOfLowerBB_BTCs" style="margin:10px 10px 10px 10px">
+                                {{bb.getPercentage() | number:'1.0-2'}}%
+                                <br/>
+                                <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="sort" (click)="clickSortButton(5)">ETH
+                        <i [ngClass]="{'right': isAscSorted_outOfLowerBB_ETHs == null, 'down': isAscSorted_outOfLowerBB_ETHs == true, 'up': isAscSorted_outOfLowerBB_ETHs == false}"></i>
+                    </div>
+                    <div *ngIf="outOfUpperBB_BTCs">
+                        <ul>
+                            <li *ngFor="let bb of outOfLowerBB_ETHs" style="margin:10px 10px 10px 10px">
+                                {{bb.getPercentage() | number:'1.0-2'}}%
+                                <br/>
+                                <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="sort" (click)="clickSortButton(6)">BNB
+                        <i [ngClass]="{'right': isAscSorted_outOfLowerBB_BNBs == null, 'down': isAscSorted_outOfLowerBB_BNBs == true, 'up': isAscSorted_outOfLowerBB_BNBs == false}"></i>
+                    </div>
+                    <div *ngIf="outOfUpperBB_BTCs">
+                        <ul>
+                            <li *ngFor="let bb of outOfLowerBB_BNBs" style="margin:10px 10px 10px 10px">
+                                {{bb.getPercentage() | number:'1.0-2'}}%
+                                <br/>
+                                <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="sort" (click)="clickSortButton(7)">USDT
+                        <i [ngClass]="{'right': isAscSorted_outOfLowerBB_USDTs == null, 'down': isAscSorted_outOfLowerBB_USDTs == true, 'up': isAscSorted_outOfLowerBB_USDTs == false}"></i>
+                    </div>
+                    <div *ngIf="outOfUpperBB_BTCs">
+                        <ul>
+                            <li *ngFor="let bb of outOfLowerBB_USDTs" style="margin:10px 10px 10px 10px">
+                                {{bb.getPercentage() | number:'1.0-2'}}%
+                                <br/>
+                                <a href="https://www.binance.com/tradeDetail.html?symbol={{bb.currencySymbol}}_{{bb.baseCurrencySymbol}}" target="_blank">{{bb.currencySymbol}}/{{bb.baseCurrencySymbol}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
