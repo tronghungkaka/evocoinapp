@@ -1,46 +1,28 @@
 //Install express server
 const express = require('express');
 const app = express();
+const path = require('path');
 
-var httpProxy = require('http-proxy');
+// For all GET requests, send back index.html
+// so that PathLocationStrategy can be used
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname + '/dist/index.html'));
+});
 
-var proxy = httpProxy.createProxyServer({});
-
-function apiProxy(host, port) {
-  return function(req, res, next) {
-    if(req.url.match(new RegExp('/api/*'))) {
-      proxy.proxyRequest(req, res, {host: host, port: port});
-    } else {
-      next();
+//If an incoming request uses a protocol other than HTTPS, 
+//redirect that request to the same url but with HTTPS
+const forceSSL = function() {
+  return function (req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect (
+        ['https://', req.get('Host'), req.url].join('')
+      );
     }
   }
 }
 
-var cors = require('cors');
-app.use(cors());
-
-// Add headers
-app.use(function (req, res, next) {
-
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'https://api.binance.com');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
-
-
-app.use(apiProxy('https://api.binance.com', 8080));
+//Instruct the app to use the forceSSL middleware
+app.use(forceSSL());
 
 //Serve only static files from dist directory
 app.use(express.static(__dirname + '/dist'));
