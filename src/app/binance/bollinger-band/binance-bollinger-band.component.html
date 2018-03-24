@@ -16,6 +16,13 @@
 
 <hr>
 
+<!-- Progress bar -->
+<div style="background-color: lightgray;">
+    <div class="container" style="background-color: orange; color: green; height:18px; text-align: right" [ngStyle]="{'width': progress + '%'}">{{progress | number:'1.0-0'}}%</div>
+</div>
+
+<br>
+
 <!-- <div style="width:100%">
     <div style="float: left; width:40%;">
         <h2 style="color:green">Out of Upper Bollinger Band</h2>
@@ -42,12 +49,12 @@
     </div>
 </div> -->
 
-<div style="width:100%">
-    <div style="float: left; width:50%;" class="rvline">
+<div class="row">
+    <div class="column column2 rvline">
         <h2 style="color:green; text-align: center">Out of Upper Bollinger Band</h2>
         <div style="overflow-x:auto;">
             <div class="row">
-                <div class="column">
+                <div class="column column4">
                     <div class="sort" (click)="clickSortButton(0)">BTC
                         <i [ngClass]="{'right': isAscSorted_outOfUpperBB_BTCs == null, 'down': isAscSorted_outOfUpperBB_BTCs == true, 'up': isAscSorted_outOfUpperBB_BTCs == false}"></i>
                     </div>
@@ -61,7 +68,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column column4">
                     <div class="sort" (click)="clickSortButton(1)">ETH
                         <i [ngClass]="{'right': isAscSorted_outOfUpperBB_ETHs == null, 'down': isAscSorted_outOfUpperBB_ETHs == true, 'up': isAscSorted_outOfUpperBB_ETHs == false}"></i>
                     </div>
@@ -75,7 +82,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column column4">
                     <div class="sort" (click)="clickSortButton(2)">BNB
                         <i [ngClass]="{'right': isAscSorted_outOfUpperBB_BNBs == null, 'down': isAscSorted_outOfUpperBB_BNBs == true, 'up': isAscSorted_outOfUpperBB_BNBs == false}"></i>
                     </div>
@@ -89,7 +96,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column column4">
                     <div class="sort" (click)="clickSortButton(3)">USDT
                         <i [ngClass]="{'right': isAscSorted_outOfUpperBB_USDTs == null, 'down': isAscSorted_outOfUpperBB_USDTs == true, 'up': isAscSorted_outOfUpperBB_USDTs == false}"></i>
                     </div>
@@ -106,11 +113,11 @@
             </div>
         </div>
     </div>
-    <div style="float: left; width:50%;" class="lvline">
+    <div class="column column2 lvline">
         <h2 style="color:red; text-align: center">Out of Lower Bollinger Band</h2>
         <div style="overflow-x:auto;">
             <div class="row">
-                <div class="column">
+                <div class="column column4">
                     <div class="sort" (click)="clickSortButton(4)">BTC
                         <i [ngClass]="{'right': isAscSorted_outOfLowerBB_BTCs == null, 'down': isAscSorted_outOfLowerBB_BTCs == true, 'up': isAscSorted_outOfLowerBB_BTCs == false}"></i>
                     </div>
@@ -124,7 +131,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column column4">
                     <div class="sort" (click)="clickSortButton(5)">ETH
                         <i [ngClass]="{'right': isAscSorted_outOfLowerBB_ETHs == null, 'down': isAscSorted_outOfLowerBB_ETHs == true, 'up': isAscSorted_outOfLowerBB_ETHs == false}"></i>
                     </div>
@@ -138,7 +145,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column column4">
                     <div class="sort" (click)="clickSortButton(6)">BNB
                         <i [ngClass]="{'right': isAscSorted_outOfLowerBB_BNBs == null, 'down': isAscSorted_outOfLowerBB_BNBs == true, 'up': isAscSorted_outOfLowerBB_BNBs == false}"></i>
                     </div>
@@ -152,7 +159,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column column4">
                     <div class="sort" (click)="clickSortButton(7)">USDT
                         <i [ngClass]="{'right': isAscSorted_outOfLowerBB_USDTs == null, 'down': isAscSorted_outOfLowerBB_USDTs == true, 'up': isAscSorted_outOfLowerBB_USDTs == false}"></i>
                     </div>

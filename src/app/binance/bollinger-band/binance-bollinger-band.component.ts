@@ -24,6 +24,8 @@ export class BinanceBollingerBandComponent implements OnInit{
 
     exchange: Exchange = Exchange.BINANCE;
 
+    progress: number = 0;
+
     outOfUpperBB_BTCs: BollingerBand[];
     outOfUpperBB_ETHs: BollingerBand[];
     outOfUpperBB_BNBs: BollingerBand[];
@@ -99,6 +101,7 @@ export class BinanceBollingerBandComponent implements OnInit{
         //console.log(JSON.stringify(tickerPrices));
         //console.log(JSON.stringify(tickerPrices.length));
         //let bollingerBands: BollingerBand[] = new Array();
+        let count = 0;
         for(let tp of tickerPrices) {
             //console.log("timeFrame to string " + CandlestickInterval.getInterval(this.timeFrame));
             this.candlestickService.getCandlestickBars(tp.symbol, CandlestickInterval.getInterval(this.timeFrame), 20, null, null)
@@ -129,7 +132,8 @@ export class BinanceBollingerBandComponent implements OnInit{
                                     this.outOfUpperBB_USDTs.push(bb);
                             }
                         }
-                            // this.bollingerBands.push(bb);
+                        ++count;
+                        this.progress = ( count / tickerPrices.length ) * 100;
                     }
                 );
         }
