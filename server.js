@@ -5,9 +5,9 @@ const path = require('path');
 
 // For all GET requests, send back index.html
 // so that PathLocationStrategy can be used
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/dist/index.html'));
-});
+// app.get('/*', function(req, res) {
+//   res.sendFile(path.join(__dirname + '/dist/index.html'));
+// });
 
 //If an incoming request uses a protocol other than HTTPS, 
 //redirect that request to the same url but with HTTPS
