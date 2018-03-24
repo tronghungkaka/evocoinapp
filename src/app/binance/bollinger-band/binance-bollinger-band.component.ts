@@ -79,7 +79,9 @@ export class BinanceBollingerBandComponent implements OnInit{
         this.isAscSorted_outOfLowerBB_BTCs = null;
         this.isAscSorted_outOfLowerBB_ETHs = null;
         this.isAscSorted_outOfLowerBB_BNBs = null;
-        this.isAscSorted_outOfLowerBB_USDTs = null;      
+        this.isAscSorted_outOfLowerBB_USDTs = null;
+        
+        this.progress = 0;
     }
 
     func() {
