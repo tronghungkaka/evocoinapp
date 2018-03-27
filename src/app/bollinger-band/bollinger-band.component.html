@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <div class="well" style="background-color: white; border: 0px; padding-left: 0px">
+        <select [(ngModel)]="timeFrame" (ngModelChange)="changeTimeFrame()">
+            TimeFrame:
+            <option value="300">5 min</option>
+            <option value="1800">30 mins</option>
+            <option value="3600">1 hour</option>
+            <option value="14400">4 hours</option>
+            <option value="86400">1 day</option>
+            <option value="604800">1 week</option>
+        </select>
+        <select (ngModelChange)="changeExchange()">
+            Exchange:
+            <option value="all">All</option>
+            <option value="binance">Binance</option>
+        </select>
+        <select (ngModelChange)="changeMarket()">
+            Market:
+            <option value="all">All</option>
+            <option value="btc">/BTC</option>
+            <option value="eth">/ETH</option>
+            <option value="bnb">/BNB</option>
+            <option value="usdt">/USDT</option>
+        </select>
+        Last updated: 05:57 pm
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="alert alert-success">
+                <strong>Advanced Users Only: </strong>Trade with up to 100X leverage.
+                <a href="#" target="_blank">Sign up here if you dare.</a>
+            </div>
+            <h2 style="color:green; text-align: center">Upper Bollinger Band</h2>
+            <hr style="border-color:green">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                style="width:60%">
+                                60%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                            style="width:60%">
+                            60%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="alert alert-danger">
+                <strong>Advanced Users Only: </strong>Trade over 195 cryptocurrencies.
+                <a href="#" target="_blank">Sign up here if you dare.</a>
+            </div>
+            <h2 style="color:red; text-align: center">Lower Bollinger Band</h2>
+            <hr style="border-color:red">
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+
+            </div>
+            <div class="col-sm-6">
+
+            </div>
+        </div>
+    </div>
+</div>

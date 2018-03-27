@@ -7,7 +7,7 @@ import { BinanceBollingerBandComponent } from './binance/bollinger-band/binance-
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'bollingerband', component: BinanceBollingerBandComponent}
+    { path: 'bollingerband', component: BollingerBandComponent}
 ];
 
 @NgModule({
