@@ -1,0 +1,17 @@
+<div>
+    <table class="table">
+        <tr *ngFor="let ticker of cmc_tickers">
+            <td>
+                <img src="../../assets/img/coins/16x16/{{ticker.id}}.png" class="img-rounded" alt="{{ticker.name}}"
+                data-toggle="tooltip" data-placement="top" title="{{ticker.name}}">
+            </td>
+            <td>
+                <b data-toggle="tooltip" data-placement="top" title="Price">${{ticker.price_usd}}</b>
+            </td>
+            <td [ngStyle]="{'color': ticker.percent_change_24h > 0 ? 'green' : 'red'}">
+                <b data-toggle="tooltip" data-placement="top" title="Change (24h)">{{ticker.percent_change_24h > 0 ? '&uarr;' : '&darr;'}} {{ticker.percent_change_24h > 0 ? ticker.percent_change_24h : -ticker.percent_change_24h}}%</b>
+            </td>
+        </tr>
+    </table>
+    <hr>
+</div>

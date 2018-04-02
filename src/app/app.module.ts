@@ -14,6 +14,10 @@ import { BinanceBollingerBandComponent } from './binance/bollinger-band/binance-
 import { BollingerBandComponent } from './bollinger-band/bollinger-band.component';
 
 import { FormsModule } from '@angular/forms';
+import { LeftsideBarComponent } from './leftside-bar/leftside-bar.component';
+import { CoinmarketcapService } from './coinmarketcap/services/coinmarketcap-service';
+import { BollingerBandService } from './binance/api/client/services/bollinger-band.service';
+import { BollingerBandFilterPipe } from './pipes/bollingerband-filter.pipe';
 
 
 @NgModule({
@@ -21,7 +25,10 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     HomeComponent,
     BollingerBandComponent,
-    BinanceBollingerBandComponent
+    BinanceBollingerBandComponent,
+    LeftsideBarComponent,
+
+    BollingerBandFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -29,7 +36,14 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [Service, CandlestickService, TickerPriceService, ServerTimeService],
+  providers: [
+    Service, 
+    CandlestickService, 
+    TickerPriceService, 
+    ServerTimeService,
+    BollingerBandService,
+    CoinmarketcapService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

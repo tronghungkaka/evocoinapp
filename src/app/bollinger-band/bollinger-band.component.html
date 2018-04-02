@@ -1,74 +1,142 @@
 <div class="container-fluid">
     <div class="well" style="background-color: white; border: 0px; padding-left: 0px">
         <select [(ngModel)]="timeFrame" (ngModelChange)="changeTimeFrame()">
-            TimeFrame:
-            <option value="300">5 min</option>
-            <option value="1800">30 mins</option>
-            <option value="3600">1 hour</option>
-            <option value="14400">4 hours</option>
-            <option value="86400">1 day</option>
-            <option value="604800">1 week</option>
+            <option value="5m">TimeFrame: 5 min</option>
+            <option value="30m">TimeFrame: 30 mins</option>
+            <option value="1h">TimeFrame: 1 hour</option>
+            <option value="4h">TimeFrame: 4 hours</option>
+            <option value="1d">TimeFrame: 1 day</option>
+            <option value="1w">TimeFrame: 1 week</option>
         </select>
-        <select (ngModelChange)="changeExchange()">
-            Exchange:
-            <option value="all">All</option>
-            <option value="binance">Binance</option>
+        <select [(ngModel)]="exchange" (ngModelChange)="changeExchange()">
+            <option value="all">Exchange: All</option>
+            <option value="binance">Exchange: Binance</option>
         </select>
-        <select (ngModelChange)="changeMarket()">
-            Market:
-            <option value="all">All</option>
-            <option value="btc">/BTC</option>
-            <option value="eth">/ETH</option>
-            <option value="bnb">/BNB</option>
-            <option value="usdt">/USDT</option>
+        <select [(ngModel)]="market" (ngModelChange)="changeMarket()">
+            <option value="all">Market: All</option>
+            <option value="btc">Market: /BTC</option>
+            <option value="eth">Market: /ETH</option>
+            <option value="bnb">Market: /BNB</option>
+            <option value="usdt">Market: /USDT</option>
         </select>
-        Last updated: 05:57 pm
+        Last updated: {{ lastUpdated | date:'yyyy-MM-dd HH:mm a z':'+0900'}}
     </div>
     <div class="row">
-        <div class="col-sm-6">
-            <div class="alert alert-success">
+        <div class="col-md-6">
+            <div class="alert alert-danger">
                 <strong>Advanced Users Only: </strong>Trade with up to 100X leverage.
                 <a href="#" target="_blank">Sign up here if you dare.</a>
             </div>
-            <h2 style="color:green; text-align: center">Upper Bollinger Band</h2>
-            <hr style="border-color:green">
+            <h2 style="color:red">Upper Bollinger Band</h2>
+            <hr style="border-color:red">
 
-            <div class="row">
-                <div class="col-sm-6">
-                    <div>
+            <div class="row" *ngIf="bollingerbandResponse">
+                <div class="col-sm-6" *ngFor="let bb of bollingerbandResponse.OutOfUpperBB | bollingerbandfilter:market">
+                    <div class="bollingerband">
                         <div class="progress">
-                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                style="width:60%">
-                                60%
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{bb.comparativePercentage | number:'1.0-0'"
+                                aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': bb.comparativePercentage + '%'}">
+                                {{bb.comparativePercentage | number:'1.0-2'}}%
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <img src="../../assets/img/coins_symbol/32x32/{{bb.currencySymbol | uppercase}}.png" class="img-rounded" alt="{{bb.currencySymbol}}">
+                                </div>
+                                <div class="col-xs-10">
+                                    <b>{{bb.symbol}}</b>
+                                    <br> ${{bb.price_usd | number:'1.0-3'}} | {{bb.price_btc | number:'1.0-8'}} BTC
+                                    <br> 10 Period AVG Volume: {{bb._10_period_AVG_volume | number:'1.0-4'}} BTC
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-9">
+                                    <div class="row">
+                                        <div class="col-xs-2">
+                                            1 week
+                                        </div>
+                                        <div class="col-xs-10">
+                                            - High: {{bb._1w_high_price | number:'1.0-8'}} BTC
+                                            <br> - Low: {{bb._1w_low_price | number:'1.0-8'}} BTC
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-2">
+                                            1 month
+                                        </div>
+                                        <div class="col-xs-10">
+                                            - High: {{bb._1M_high_price | number:'1.0-8'}} BTC
+                                            <br> - Low: {{bb._1M_low_price | number:'1.0-8'}} BTC
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <h4 style="color:green;">{{bb.percentage | number:'1.0-2'}}%</h4>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                            style="width:60%">
-                            60%
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="alert alert-danger">
+        <div class="col-md-6">
+            <div class="alert alert-success">
                 <strong>Advanced Users Only: </strong>Trade over 195 cryptocurrencies.
                 <a href="#" target="_blank">Sign up here if you dare.</a>
             </div>
-            <h2 style="color:red; text-align: center">Lower Bollinger Band</h2>
-            <hr style="border-color:red">
-        </div>
+            <h2 style="color: green">Lower Bollinger Band</h2>
+            <hr style="border-color:green">
 
-        <div class="row">
-            <div class="col-sm-6">
 
-            </div>
-            <div class="col-sm-6">
-
+            <div class="row" *ngIf="bollingerbandResponse">
+                <div class="col-sm-6" *ngFor="let bb of bollingerbandResponse.OutOfLowerBB | bollingerbandfilter:market">
+                    <div class="bollingerband">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{bb.comparativePercentage | number:'1.0-0'"
+                                aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': bb.comparativePercentage + '%'}">
+                                {{bb.comparativePercentage | number:'1.0-2'}}%
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <img src="../../assets/img/coins_symbol/32x32/{{bb.currencySymbol | uppercase}}.png" class="img-rounded" alt="{{bb.currencySymbol}}">
+                                </div>
+                                <div class="col-xs-10">
+                                    <b>{{bb.symbol}}</b>
+                                    <br> ${{bb.price_usd | number:'1.0-3'}} | {{bb.price_btc | number:'1.0-8'}} BTC
+                                    <br> 10 Period AVG Volume: {{bb._10_period_AVG_volume | number:'1.0-4'}} BTC
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-9">
+                                    <div class="row">
+                                        <div class="col-xs-2">
+                                            1 week
+                                        </div>
+                                        <div class="col-xs-10">
+                                            - High: {{bb._1w_high_price | number:'1.0-8'}} BTC
+                                            <br> - Low: {{bb._1w_low_price | number:'1.0-8'}} BTC
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-2">
+                                            1 month
+                                        </div>
+                                        <div class="col-xs-10">
+                                            - High: {{bb._1M_high_price | number:'1.0-8'}} BTC
+                                            <br> - Low: {{bb._1M_low_price | number:'1.0-8'}} BTC
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <h4 style="color:green;">{{bb.percentage | number:'1.0-2'}}%</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

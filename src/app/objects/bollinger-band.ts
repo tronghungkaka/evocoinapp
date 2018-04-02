@@ -8,6 +8,17 @@ export class BollingerBand {
     sma: number;
     lowerBB: number;
     percentage: number = null;
+    comparativePercentage: number;
+    interval: string;
+    timestamp: string;
+    price_usd: number;
+    price_btc: number;
+    _1w_high_price: number;
+    _1w_low_price: number;
+    _1M_high_price: number;
+    _1M_low_price: number;
+    _10_period_AVG_volume: number;
+
     outOfBands: boolean;
     outOfLowerBollingerBand: boolean;
     outOfUpperBollingerBand: boolean;
@@ -51,6 +62,19 @@ export class BollingerBand {
         this.percentage *= 100;
         return this.percentage;
         // return this.percentage;
+    }
+
+    getComparativePercentage(): number {
+        if(this.comparativePercentage != null)
+            return this.comparativePercentage;
+        if(this.isOutOfLowerBollingerBand()) {
+            this.comparativePercentage = (this.stsLowerBB - this.stsLastPrice) / (this.stsSMA - this.stsLowerBB);
+        }
+        else if(this.isOutOfUpperBollingerBand()) {
+            this.comparativePercentage = (this.stsLastPrice - this.stsUpperBB) / (this.stsUpperBB - this.stsSMA);
+        }
+        this.comparativePercentage *= 100;
+        return this.comparativePercentage;
     }
 
     getExchange(): string {

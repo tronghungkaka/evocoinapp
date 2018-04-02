@@ -13,7 +13,7 @@ const httpOptions = {
 
 @Injectable()
 export class Service {
-    private url = 'https://evotradingappserver.herokuapp.com';
+    private url = 'http://localhost:8080';//'https://evotradingappserver.herokuapp.com';
 
     constructor(
         private http: HttpClient
@@ -21,7 +21,6 @@ export class Service {
 
     get<T>(pattern: string): Observable<T> {
         return this.http.get<T>(this.url + pattern, httpOptions)
-            // .timeout(180000)
             .pipe(
                 //tap(T => console.log(JSON.stringify(T)))
             );

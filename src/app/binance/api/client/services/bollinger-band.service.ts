@@ -3,6 +3,7 @@ import { Service } from './service';
 
 import { Observable } from 'rxjs/Observable';
 import { BollingerBand } from '../../../../objects/bollinger-band';
+import { BollingerBandResponse } from '../../../../objects/bollinger-band-response';
 
 
 @Injectable()
@@ -19,5 +20,11 @@ export class BollingerBandService {
             
             //console.log(JSON.stringify(pattern));
             return this.service.get(this.candlestickUrl + pattern);
+    }
+
+    getEvoBollingerBandResponse(exchange: string, interval: string): Observable<BollingerBandResponse> {
+        let pattern = "/api/evo/bollingerband";
+        pattern += "?exchange=" + exchange + "&interval=" + interval;
+        return this.service.get(pattern);
     }
 }
