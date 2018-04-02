@@ -18,6 +18,8 @@ export class BollingerBandComponent implements OnInit {
 
   bollingerbandResponse: BollingerBandResponse;
 
+  binanceTradeDetailURL: string = "https://www.binance.com/tradeDetail.html?symbol=";
+
   constructor(
     private bollingerbandService: BollingerBandService
   ) {}
