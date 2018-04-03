@@ -55,4 +55,11 @@ export class BollingerBandComponent implements OnInit {
   changeMarket() {
 
   }
+
+  collapse(element) {
+    if(element.textContent == "Collapse")
+      element.textContent = "Expand";
+    else 
+      element.textContent = "Collapse";
+  }
 }
