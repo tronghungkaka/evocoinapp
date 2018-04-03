@@ -12,7 +12,7 @@ export class BollingerBand {
     interval: string;
     timestamp: string;
     price_usd: number;
-    price_btc: number;
+    price_base_currency: number;
     _1w_high_price: number;
     _1w_low_price: number;
     _1M_high_price: number;
