@@ -19,6 +19,9 @@ export class BollingerBand {
     _1M_low_price: number;
     _10_period_AVG_volume: number;
 
+    _24hr_volume: number;
+    _24hr_quote_volume: number;
+
     outOfBands: boolean;
     outOfLowerBollingerBand: boolean;
     outOfUpperBollingerBand: boolean;
