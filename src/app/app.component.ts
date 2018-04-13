@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from './registration-login/_services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Evo Trade App';
+  title = 'Evo Coin App';
+
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) { }
 }
