@@ -27,6 +27,8 @@ import { AlertService, AuthenticationService, UserService } from './registration
 import { JwtInterceptor, fakeBackendProvider } from './registration-login/_helpers';
 import { AdminAuthGuard } from './registration-login/_guards/admin-auth.guard';
 import { UpdateComponent } from './registration-login/update';
+import { BollingerBandStreamComponent } from './bollinger-band-stream/bollinger-band-stream.component';
+import { StreamingBollingerBandFilterPipe } from './pipes/streamingbollingerband-filter.pipe';
 
 
 @NgModule({
@@ -34,10 +36,12 @@ import { UpdateComponent } from './registration-login/update';
     AppComponent,
     HomeComponent,
     BollingerBandComponent,
+    BollingerBandStreamComponent,
     BinanceBollingerBandComponent,
     LeftsideBarComponent,
 
     BollingerBandFilterPipe,
+    StreamingBollingerBandFilterPipe,
 
     AlertComponent,
     DasboardComponent,

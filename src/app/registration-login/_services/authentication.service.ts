@@ -7,7 +7,7 @@ import { User } from '../_models';
 @Injectable()
 export class AuthenticationService {
     private url = 
-                    // 'http://localhost:8080'; 
+                    // 'http://localhost:8080';
                     'https://evocoinappserver.herokuapp.com';
 
     constructor(private http: HttpClient) { }

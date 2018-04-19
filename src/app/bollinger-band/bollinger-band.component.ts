@@ -27,9 +27,13 @@ export class BollingerBandComponent implements OnInit {
   ngOnInit() {
     console.log("Bollinger band component");
 
-    this.timeFrame = "30m";
-    this.exchange = "all";
-    this.market = "all";
+    this.timeFrame = localStorage.getItem("bbTimeFrame") || "30m";
+    this.exchange = localStorage.getItem("bbExchange") || "all";
+    this.market = localStorage.getItem("bbMarket") || "all";
+
+    localStorage.setItem("bbTimeFrame", this.timeFrame);
+    localStorage.setItem("bbExchange", this.exchange);
+    localStorage.setItem("bbMarket", this.market);
 
     this.getEvoBollingerBands();
   }
@@ -45,15 +49,17 @@ export class BollingerBandComponent implements OnInit {
   }
 
   changeTimeFrame() {
+    localStorage.setItem("bbTimeFrame", this.timeFrame);
     this.getEvoBollingerBands();
   }
 
   changeExchange() {
+    localStorage.setItem("bbExchange", this.exchange);
     this.getEvoBollingerBands();
   }
 
   changeMarket() {
-
+    localStorage.setItem("bbMarket", this.market);
   }
 
   collapse(element) {

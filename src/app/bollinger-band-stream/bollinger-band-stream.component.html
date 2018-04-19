@@ -1,0 +1,168 @@
+<div class="container-fluid">
+    <div class="well" style="background-color: white; border: 0px; padding-left: 0px">
+        <select [(ngModel)]="timeFrame" (ngModelChange)="changeTimeFrame()">
+            <option value="5m">TimeFrame: 5 min</option>
+            <option value="30m">TimeFrame: 30 mins</option>
+            <option value="1h">TimeFrame: 1 hour</option>
+            <option value="4h">TimeFrame: 4 hours</option>
+            <option value="1d">TimeFrame: 1 day</option>
+            <option value="1w">TimeFrame: 1 week</option>
+        </select>
+        <select [(ngModel)]="exchange" (ngModelChange)="changeExchange()">
+            <option value="all">Exchange: All</option>
+            <option value="binance">Exchange: Binance</option>
+        </select>
+        <select [(ngModel)]="market" (ngModelChange)="changeMarket()">
+            <option value="all">Market: All</option>
+            <option value="btc">Market: /BTC</option>
+            <option value="eth">Market: /ETH</option>
+            <option value="bnb">Market: /BNB</option>
+            <option value="usdt">Market: /USDT</option>
+        </select>
+        <!-- Last updated: {{ lastUpdated | date:'yyyy-MM-dd HH:mm a z':'+0900'}} -->
+    </div>
+    <div class="row">
+        <div class="col-sm-6 collapse in">
+            <div class="alert alert-success hide">
+                <strong>Advanced Users Only: </strong>Trade with up to 100X leverage.
+                <a href="#" target="_blank">Sign up here if you dare.</a>
+            </div>
+            <h2 style="color:green">Upper Bollinger Band</h2>
+            <hr style="border-color:green">
+
+            <div class="hidden-lg hidden-xl" style="margin-bottom:10px">
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#upperbollingerband" (click)="collapse($event.target)">Collapse</button>
+            </div>
+            <div id="upperbollingerband" class="collapse in">
+                <div class="row" *ngIf="uppersbb">
+                    <div class="col-xs-6" *ngFor="let sbb of uppersbb | streamingbollingerbandfilter:market">
+                        <div class="bollingerband">
+                            <!-- <div class="progress hide">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{bb.comparativePercentage | number:'1.0-0'"
+                                    aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': bb.comparativePercentage + '%'}">
+                                    {{bb.comparativePercentage | number:'1.0-2'}}%
+                                </div>
+                            </div> -->
+                            <div>
+                                <div class="row">
+                                    <div class="col-xs-2">
+                                        <img src="../../assets/img/coins_symbol/32x32/{{getCurrencySymbol(sbb.s) | uppercase}}.png" class="img-rounded" alt="{{getCurrencySymbol(sbb.s)}}">
+                                    </div>
+                                    <div class="col-xs-10">
+                                        <b><a href="{{binanceTradeDetailURL + getCurrencySymbol(sbb.s) + '_' + getBaseCurrencySymbol(sbb.s)}}" target="_blank">{{sbb.s}}</a></b>
+                                        <br> {{sbb.b | number:'1.0-8'}} 
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        24hr Quote Volume: {{sbb.q | number:'1.0-2'}}
+                                    </div>
+                                    <!-- <div class="col-xs-12">
+                                        10 Period AVG Volume: {{bb._10_period_AVG_volume | number:'1.0-8'}} 
+                                    </div> -->
+                                </div>
+                                <div class="row">
+                                    <!-- <div class="col-xs-8 hide">
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                1w
+                                            </div>
+                                            <div class="col-xs-10">
+                                                - High: {{bb._1w_high_price | number:'1.0-8'}} 
+                                                <br> - Low: {{bb._1w_low_price | number:'1.0-8'}} 
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                1M
+                                            </div>
+                                            <div class="col-xs-10">
+                                                - High: {{bb._1M_high_price | number:'1.0-8'}} 
+                                                <br> - Low: {{bb._1M_low_price | number:'1.0-8'}} 
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-xs-4">
+                                        <h3 style="color:green;">{{sbb.p | number:'1.0-2'}}%</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 collapse in">
+            <div class="alert alert-danger hide">
+                <strong>Advanced Users Only: </strong>Trade over 195 cryptocurrencies.
+                <a href="#" target="_blank">Sign up here if you dare.</a>
+            </div>
+            <h2 style="color: red">Lower Bollinger Band</h2>
+            <hr style="border-color:red">
+
+            <div class="hidden-lg hidden-xl" style="margin-bottom:10px">
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#lowerbollingerband" (click)="collapse($event.target)">Collapse</button>
+            </div>
+            <div id="lowerbollingerband" class="collapse in">
+                <div class="row" *ngIf="lowersbb">
+                    <div class="col-xs-6" *ngFor="let sbb of lowersbb | streamingbollingerbandfilter:market">
+                        <div class="bollingerband">
+                            <!-- <div class="progress hide">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{bb.comparativePercentage | number:'1.0-0'"
+                                    aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': bb.comparativePercentage + '%'}">
+                                    {{bb.comparativePercentage | number:'1.0-2'}}%
+                                </div>
+                            </div> -->
+                            <div>
+                                <div class="row">
+                                    <div class="col-xs-2">
+                                        <img src="../../assets/img/coins_symbol/32x32/{{getCurrencySymbol(sbb.s) | uppercase}}.png" class="img-rounded" alt="{{getCurrencySymbol(sbb.s)}}">
+                                    </div>
+                                    <div class="col-xs-10">
+                                        <b><a href="{{binanceTradeDetailURL + getCurrencySymbol(sbb.s) + '_' + getBaseCurrencySymbol(sbb.s)}}" target="_blank">{{sbb.s}}</a></b>
+                                        <br>{{sbb.b | number:'1.0-8'}} 
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        24hr Quote Volume: {{sbb.q | number:'1.0-2'}}
+                                    </div>
+                                    <!-- <div class="col-xs-12">
+                                        10 Period AVG Volume: {{bb._10_period_AVG_volume | number:'1.0-8'}} 
+                                    </div> -->
+                                </div>
+                                <div class="row">
+                                    <!-- <div class="col-xs-8 hide">
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                1w
+                                            </div>
+                                            <div class="col-xs-10">
+                                                - High: {{bb._1w_high_price | number:'1.0-8'}} 
+                                                <br> - Low: {{bb._1w_low_price | number:'1.0-8'}} 
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                1M
+                                            </div>
+                                            <div class="col-xs-10">
+                                                - High: {{bb._1M_high_price | number:'1.0-8'}} 
+                                                <br> - Low: {{bb._1M_low_price | number:'1.0-8'}} 
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-xs-4">
+                                        <h3 style="color:red;">{{sbb.p | number:'1.0-2'}}%</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
