@@ -74,7 +74,7 @@ export class BollingerBandStreamComponent implements OnInit, OnDestroy {
   initializeWebSocketConnection() {
     let ws = new SockJS(this.serverUrl);
     this.stompClient = Stomp.over(ws);
-    // this.stompClient.debug = null;
+    this.stompClient.debug = null;
     let that = this;
     this.stompClient.connect({}, function(frame) {
       that.stompClient.subscribe("/bollingerband/" + that.timeFrame, (message) => {

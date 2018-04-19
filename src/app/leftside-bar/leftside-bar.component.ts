@@ -16,7 +16,9 @@ export class LeftsideBarComponent implements OnInit, OnDestroy {
 
   cmc_tickers: CoinmarketcapTicker[];
 
-  private serverUrl = 'http://localhost:8080/socket';
+  private serverUrl = 
+                    // 'http://localhost:8080/socket';
+                    'https://evocoinappserver.herokuapp.com/socket';
   private stompClient;
 
   constructor(
