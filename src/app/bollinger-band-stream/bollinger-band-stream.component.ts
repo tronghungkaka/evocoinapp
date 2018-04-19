@@ -15,7 +15,9 @@ import { StreamingBollingerBand } from '../objects/streaming-bollinge-band';
 export class BollingerBandStreamComponent implements OnInit, OnDestroy {
   title = 'Bollinger Band Component';
 
-  private serverUrl = 'http://localhost:8080/socket';
+  private serverUrl = 
+                    // 'http://localhost:8080/socket';
+                    'https://evocoinappserver.herokuapp.com/socket';
   private stompClient;
   lowerMap: Map<string, StreamingBollingerBand>;
   upperMap: Map<string, StreamingBollingerBand>;
