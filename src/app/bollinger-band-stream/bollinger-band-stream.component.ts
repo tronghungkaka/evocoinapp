@@ -94,8 +94,8 @@ export class BollingerBandStreamComponent implements OnInit, OnDestroy {
             that.lowerMap.delete(sbb.s);
           }
 
-          that.lowersbb = Array.from(that.lowerMap.values()).sort( (a, b) => { return (+a.p > +b.p) ? 0 : 1 });
-          that.uppersbb = Array.from(that.upperMap.values()).sort( (a, b) => { return (+a.p > +b.p) ? 0 : 1 });
+          that.lowersbb = Array.from(that.lowerMap.values()).sort( (a, b) => { return -that.compareStrNumber(a.p, b.p) });
+          that.uppersbb = Array.from(that.upperMap.values()).sort( (a, b) => { return -that.compareStrNumber(a.p, b.p) });
         }
       });
     });
@@ -161,5 +161,25 @@ export class BollingerBandStreamComponent implements OnInit, OnDestroy {
     return "";
   }
 
-
+  compareStrNumber(a: string, b: string): number {
+    let ia = a.indexOf(".");
+    let ib = b.indexOf(".");
+    if (ia > ib)
+      return 1;
+    if (ia < ib)
+      return -1;
+    let deca = a.substring(0, ia);
+    let decb = b.substring(0, ib);
+    if (deca > decb)
+      return 1;
+    if (deca < decb)
+      return -1;
+    let fraca = a.substring(ia);
+    let fracb = b.substring(ib);
+    if (fraca > fracb)
+      return 1;
+    if (fraca < fracb)
+      return -1;
+    return 0;
+  }
 }
