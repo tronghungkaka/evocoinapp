@@ -8,7 +8,7 @@ export class AdminAuthGuard implements CanActivate {
     constructor(private router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        console.log("canActive - " + localStorage.getItem('currentUser'));
+        // console.log("canActive - " + localStorage.getItem('currentUser'));
         let user: User = JSON.parse(localStorage.getItem('currentUser'));
         if (user && user.role >= 5) {
             // logged in so return true

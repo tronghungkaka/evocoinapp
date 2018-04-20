@@ -42,8 +42,7 @@ export class BollingerBandStreamComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log("Bollinger band component");
 
-    this.lowerMap = new Map();
-    this.upperMap = new Map();
+    this.init();
 
     this.timeFrame = localStorage.getItem("bbTimeFrame") || "30m";
     this.exchange = localStorage.getItem("bbExchange") || "all";
@@ -55,6 +54,11 @@ export class BollingerBandStreamComponent implements OnInit, OnDestroy {
 
     // this.getEvoBollingerBands();
     this.initializeWebSocketConnection();
+  }
+
+  init() {
+    this.lowerMap = new Map();
+    this.upperMap = new Map();
   }
 
   ngOnDestroy() {
@@ -72,6 +76,7 @@ export class BollingerBandStreamComponent implements OnInit, OnDestroy {
   }
 
   initializeWebSocketConnection() {
+    this.init();
     let ws = new SockJS(this.serverUrl);
     this.stompClient = Stomp.over(ws);
     this.stompClient.debug = null;
