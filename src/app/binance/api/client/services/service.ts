@@ -27,4 +27,11 @@ export class Service {
                 //tap(T => console.log(JSON.stringify(T)))
             );
     }
+
+    getJson<T>(pattern: string): Observable<T> {
+        return this.http.get<T>(pattern, httpOptions)
+            .pipe(
+                //tap(T => console.log(JSON.stringify(T)))
+            );
+    }
 }

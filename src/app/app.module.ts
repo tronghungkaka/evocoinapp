@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { BinanceBollingerBandComponent } from './binance/bollinger-band/binance-bollinger-band.component';
 import { BollingerBandComponent } from './bollinger-band/bollinger-band.component';
 
+import { ChartsModule } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
 import { LeftsideBarComponent } from './leftside-bar/leftside-bar.component';
 import { CoinmarketcapService } from './coinmarketcap/services/coinmarketcap-service';
@@ -29,6 +30,10 @@ import { AdminAuthGuard } from './registration-login/_guards/admin-auth.guard';
 import { UpdateComponent } from './registration-login/update';
 import { BollingerBandStreamComponent } from './bollinger-band-stream/bollinger-band-stream.component';
 import { StreamingBollingerBandFilterPipe } from './pipes/streamingbollingerband-filter.pipe';
+import { DominanceComponent } from './dominance/dominance.component';
+import { DominanceFilterPipe } from './pipes/dominance-filter.pipe';
+import { RSIChartComponent } from './charts/rsi-chart/rsi-chart.component';
+import { DominanceService } from './binance/api/client/services/dominance.service';
 
 
 @NgModule({
@@ -42,6 +47,10 @@ import { StreamingBollingerBandFilterPipe } from './pipes/streamingbollingerband
 
     BollingerBandFilterPipe,
     StreamingBollingerBandFilterPipe,
+    DominanceFilterPipe,
+
+    DominanceComponent,
+    RSIChartComponent,
 
     AlertComponent,
     DasboardComponent,
@@ -53,7 +62,8 @@ import { StreamingBollingerBandFilterPipe } from './pipes/streamingbollingerband
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ChartsModule
   ],
   providers: [
     Service, 
@@ -62,6 +72,8 @@ import { StreamingBollingerBandFilterPipe } from './pipes/streamingbollingerband
     ServerTimeService,
     BollingerBandService,
     CoinmarketcapService,
+
+    DominanceService,
 
     AuthGuard,
     AdminAuthGuard,

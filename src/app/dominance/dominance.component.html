@@ -1,0 +1,310 @@
+<div class="container-fluid">
+    <div class="well" style="background-color: white; border: 0px; padding-left: 0px; margin-bottom: 0px;">
+        <!-- <select [(ngModel)]="timeFrame" (ngModelChange)="changeTimeFrame()">
+            <option value="5m">TimeFrame: 5 min</option>
+            <option value="30m">TimeFrame: 30 mins</option>
+            <option value="1h">TimeFrame: 1 hour</option>
+            <option value="4h">TimeFrame: 4 hours</option>
+            <option value="1d">TimeFrame: 1 day</option>
+            <option value="1w">TimeFrame: 1 week</option>
+        </select> -->
+        <select [(ngModel)]="exchange" (ngModelChange)="changeExchange()">
+            <option value="all">Exchange: All</option>
+            <option value="binance">Exchange: Binance</option>
+        </select>
+        <!-- <select [(ngModel)]="market" (ngModelChange)="changeMarket()">
+            <option value="all">Market: All</option>
+            <option value="btc">Market: /BTC</option>
+            <option value="eth">Market: /ETH</option>
+            <option value="bnb">Market: /BNB</option>
+            <option value="usdt">Market: /USDT</option>
+        </select> -->
+        <!-- Last updated: {{ lastUpdated | date:'yyyy-MM-dd HH:mm a z':'+0900'}} -->
+    </div>
+    <div class="row">
+        <div class="col-sm-6 collapse in">
+            <div class="alert alert-success hide">
+                <strong>Advanced Users Only: </strong>Trade with up to 100X leverage.
+                <a href="#" target="_blank">Sign up here if you dare.</a>
+            </div>
+            <h2 style="color:orange">Market: /BTC</h2>
+            <hr style="border-color:orange">
+
+            <div class="hidden-lg hidden-xl" style="margin-bottom:10px">
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#upperbollingerband" (click)="collapse($event.target)">Collapse</button>
+            </div>
+            <div id="upperbollingerband" class="collapse in">
+                <div class="row" *ngIf="dominances">
+                    <div class="col-xs-12" *ngFor="let dominance of dominances | dominancefilter:'btc'">
+                        <div class="bollingerband">
+                            <!-- <div class="progress hide">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{bb.comparativePercentage | number:'1.0-0'"
+                                    aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': bb.comparativePercentage + '%'}">
+                                    {{bb.comparativePercentage | number:'1.0-2'}}%
+                                </div>
+                            </div> -->
+                            <div>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <img src="../../assets/img/coins_symbol/32x32/{{getCurrencySymbol(dominance.symbol) | uppercase}}.png" class="img-rounded"
+                                                    alt="{{getCurrencySymbol(dominance.symbol)}}">
+                                            </div>
+                                            <div class="col-xs-9">
+                                                <b>
+                                                    <a href="{{binanceTradeDetailURL + getCurrencySymbol(dominance.symbol) + '_' + getBaseCurrencySymbol(dominance.symbol)}}"
+                                                        target="_blank">{{dominance.symbol}}</a>
+                                                </b>
+                                                <br> ${{dominance.usdPrice | number:'1.0-2'}} | {{dominance.baseCurrencyPrice
+                                                | number:'1.0-8'}}
+                                                <br>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="row">
+                                            <div class="col-xs-12">
+                                                24hr Quote Volume: {{dominance._24hr_quote_volume | number:'1.0-2'}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                10 Period AVG Volume: {{bb._10_period_AVG_volume | number:'1.0-8'}} 
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <rsi-chart [datasets]="dominance.rsi"></rsi-chart>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- <div class="col-xs-8 hide">
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                1w
+                                            </div>
+                                            <div class="col-xs-10">
+                                                - High: {{bb._1w_high_price | number:'1.0-8'}} 
+                                                <br> - Low: {{bb._1w_low_price | number:'1.0-8'}} 
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                1M
+                                            </div>
+                                            <div class="col-xs-10">
+                                                - High: {{bb._1M_high_price | number:'1.0-8'}} 
+                                                <br> - Low: {{bb._1M_low_price | number:'1.0-8'}} 
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-xs-12">
+                                        <div class="dropdown">
+                                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Volume: {{dominance._24hr_quote_volume | number:'1.0-2'}}
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <!-- <li> -->
+                                                <div class="row">
+                                                    <div class="col-xs-4">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Date</th>
+                                                                    <th>Excess</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor='let excess of dominance.excess.slice(0, dominance.excess.length / 3)'>
+                                                                    <td>{{excess.date}}</td>
+                                                                    <td [ngStyle]="{'color': excess.value.includes('-') ? 'red' : 'green'}">{{excess.value | number:'1.0-2'}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Date</th>
+                                                                    <th>Excess</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor='let excess of dominance.excess.slice(dominance.excess.length / 3, dominance.excess.length * 2 / 3)'>
+                                                                    <td>{{excess.date}}</td>
+                                                                    <td [ngStyle]="{'color': excess.value.includes('-') ? 'red' : 'green'}">{{excess.value | number:'1.0-2'}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Date</th>
+                                                                    <th>Excess</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor='let excess of dominance.excess.slice(dominance.excess.length * 2 / 3)'>
+                                                                    <td>{{excess.date}}</td>
+                                                                    <td [ngStyle]="{'color': excess.value.includes('-') ? 'red' : 'green'}">{{excess.value | number:'1.0-2'}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <!-- </li> -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 collapse in">
+            <div class="alert alert-danger hide">
+                <strong>Advanced Users Only: </strong>Trade over 195 cryptocurrencies.
+                <a href="#" target="_blank">Sign up here if you dare.</a>
+            </div>
+            <h2 style="color: gray">Market: /ETH</h2>
+            <hr style="border-color:gray">
+
+            <div class="hidden-lg hidden-xl" style="margin-bottom:10px">
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#lowerbollingerband" (click)="collapse($event.target)">Collapse</button>
+            </div>
+            <div id="lowerbollingerband" class="collapse in">
+                <div class="row" *ngIf="dominances">
+                    <div class="col-xs-12" *ngFor="let dominance of dominances | dominancefilter:'eth'">
+                        <div class="bollingerband">
+                            <!-- <div class="progress hide">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{bb.comparativePercentage | number:'1.0-0'"
+                                            aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': bb.comparativePercentage + '%'}">
+                                            {{bb.comparativePercentage | number:'1.0-2'}}%
+                                        </div>
+                                    </div> -->
+                            <div>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <img src="../../assets/img/coins_symbol/32x32/{{getCurrencySymbol(dominance.symbol) | uppercase}}.png" class="img-rounded"
+                                                    alt="{{getCurrencySymbol(dominance.symbol)}}">
+                                            </div>
+                                            <div class="col-xs-9">
+                                                <b>
+                                                    <a href="{{binanceTradeDetailURL + getCurrencySymbol(dominance.symbol) + '_' + getBaseCurrencySymbol(dominance.symbol)}}"
+                                                        target="_blank">{{dominance.symbol}}</a>
+                                                </b>
+                                                <br> ${{dominance.usdPrice | number:'1.0-2'}} | {{dominance.baseCurrencyPrice
+                                                | number:'1.0-8'}}
+                                                <br>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="row">
+                                                    <div class="col-xs-12">
+                                                        24hr Quote Volume: {{dominance._24hr_quote_volume | number:'1.0-2'}}
+                                                    </div>
+                                                    <div class="col-xs-12">
+                                                        10 Period AVG Volume: {{bb._10_period_AVG_volume | number:'1.0-8'}} 
+                                                    </div>
+                                                </div> -->
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <rsi-chart [datasets]="dominance.rsi"></rsi-chart>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- <div class="col-xs-8 hide">
+                                                <div class="row">
+                                                    <div class="col-xs-2">
+                                                        1w
+                                                    </div>
+                                                    <div class="col-xs-10">
+                                                        - High: {{bb._1w_high_price | number:'1.0-8'}} 
+                                                        <br> - Low: {{bb._1w_low_price | number:'1.0-8'}} 
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-2">
+                                                        1M
+                                                    </div>
+                                                    <div class="col-xs-10">
+                                                        - High: {{bb._1M_high_price | number:'1.0-8'}} 
+                                                        <br> - Low: {{bb._1M_low_price | number:'1.0-8'}} 
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                    <div class="col-xs-12">
+                                            <div class="dropdown">
+                                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Volume: {{dominance._24hr_quote_volume | number:'1.0-2'}}
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <!-- <li> -->
+                                                    <div class="row">
+                                                        <div class="col-xs-4">
+                                                            <table class="table table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Date</th>
+                                                                        <th>Excess</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor='let excess of dominance.excess.slice(0, dominance.excess.length / 3)'>
+                                                                        <td>{{excess.date}}</td>
+                                                                        <td [ngStyle]="{'color': excess.value.includes('-') ? 'red' : 'green'}">{{excess.value | number:'1.0-2'}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            <table class="table table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Date</th>
+                                                                        <th>Excess</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor='let excess of dominance.excess.slice(dominance.excess.length / 3, dominance.excess.length * 2 / 3)'>
+                                                                        <td>{{excess.date}}</td>
+                                                                        <td [ngStyle]="{'color': excess.value.includes('-') ? 'red' : 'green'}">{{excess.value | number:'1.0-2'}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            <table class="table table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Date</th>
+                                                                        <th>Excess</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor='let excess of dominance.excess.slice(dominance.excess.length * 2 / 3)'>
+                                                                        <td>{{excess.date}}</td>
+                                                                        <td [ngStyle]="{'color': excess.value.includes('-') ? 'red' : 'green'}">{{excess.value | number:'1.0-2'}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <!-- </li> -->
+                                                </ul>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
