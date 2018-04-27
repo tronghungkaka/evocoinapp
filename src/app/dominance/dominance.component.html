@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="well" style="background-color: white; border: 0px; padding-left: 0px; margin-bottom: 0px;">
+    <div class="well form-inline" style="background-color: white; border: 0px; padding-left: 0px; margin-bottom: 0px;">
         <!-- <select [(ngModel)]="timeFrame" (ngModelChange)="changeTimeFrame()">
             <option value="5m">TimeFrame: 5 min</option>
             <option value="30m">TimeFrame: 30 mins</option>
@@ -20,6 +20,15 @@
             <option value="usdt">Market: /USDT</option>
         </select> -->
         <!-- Last updated: {{ lastUpdated | date:'yyyy-MM-dd HH:mm a z':'+0900'}} -->
+
+        <div class="input-group" style="float: right;">
+            <input type="text" [(ngModel)]="searchSymbol" class="form-control" placeholder="symbol">
+            <div class="input-group-btn">
+                <button class="btn btn-default" (click)="search()">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-sm-6 collapse in">

@@ -11,6 +11,8 @@ export class DominanceComponent implements OnInit {
 
     exchange: string;
 
+    searchSymbol: string;
+
     dominances: Dominance[];
 
     binanceTradeDetailURL: string = "https://www.binance.com/tradeDetail.html?symbol=";
@@ -120,5 +122,22 @@ export class DominanceComponent implements OnInit {
     if (fraca < fracb)
       return -1;
     return 0;
+  }
+
+  search() {
+    if (this.searchSymbol == null || this.searchSymbol === '') {
+      this.getDominances();
+      return;
+    }
+    this.getDominance();
+  }
+
+  getDominance() {
+    this.dominanceService.getDominance(this.searchSymbol, this.exchange).subscribe(
+      data => {
+         this.dominances = data.sort( (a, b) => { return this.compareStrNumber(a._24hr_quote_volume, b._24hr_quote_volume) });
+         console.log(JSON.stringify(this.dominances));
+      }
+    );
   }
 }
