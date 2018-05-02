@@ -24,7 +24,7 @@ const routes: Routes = [
     { path: 'bollingerband', component: BollingerBandComponent, canActivate: [AuthGuard]},
     { path: 'update', component: UpdateComponent, canActivate: [AuthGuard]},
     { path: 'bollingerbandstream', component: BollingerBandStreamComponent, canActivate: [AuthGuard]},
-    { path: 'dominance', component: DominanceComponent, canActivate: [AuthGuard]},
+    { path: 'realcashflow', component: DominanceComponent, canActivate: [AuthGuard]},
 
     { path: '**', redirectTo: ''}
 ];
