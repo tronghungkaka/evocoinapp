@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BollingerBandResponse } from '../objects/bollinger-band-response';
-import { BollingerBandService } from '../binance/api/client/services/bollinger-band.service';
+import { BollingerBandService } from '../services/bollinger-band.service';
 
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 import $ from 'jquery';
 import { StreamingBollingerBand } from '../objects/streaming-bollinge-band';
+
+import * as AppUtils from '../utils/app.utils';
 
 @Component({
   selector: 'app-bollinger-band',
@@ -16,8 +18,9 @@ export class BollingerBandStreamComponent implements OnInit, OnDestroy {
   title = 'Bollinger Band Component';
 
   private serverUrl = 
-                    // 'http://localhost:8080/socket';
-                    'https://evocoinappserver.herokuapp.com/socket';
+                    // AppUtils.BACKEND_API_ROOT_LOCAL_URL + AppUtils.BACKEND_SOCKET_PATH;
+                    AppUtils.BACKEND_API_ROOT_URL + AppUtils.BACKEND_SOCKET_PATH;
+                    
   private stompClient;
   lowerMap: Map<string, StreamingBollingerBand>;
   upperMap: Map<string, StreamingBollingerBand>;
@@ -33,7 +36,11 @@ export class BollingerBandStreamComponent implements OnInit, OnDestroy {
 
   bollingerbandResponse: BollingerBandResponse;
 
-  binanceTradeDetailURL: string = "https://www.binance.com/tradeDetail.html?symbol=";
+  binanceTradeDetailURL: string = AppUtils.BINANCE_TRADE_DETAIL_URL;
+
+  STORAGE_BB_TIMEFRAME: string = 'bbTimeFrame';
+  STORAGE_BB_EXCHANGE: string = 'bbExchange';
+  STORAGE_BB_MARKET: string = 'bbMarket';
 
   constructor(
     private bollingerbandService: BollingerBandService
@@ -44,13 +51,13 @@ export class BollingerBandStreamComponent implements OnInit, OnDestroy {
 
     this.init();
 
-    this.timeFrame = localStorage.getItem("bbTimeFrame") || "30m";
-    this.exchange = localStorage.getItem("bbExchange") || "all";
-    this.market = localStorage.getItem("bbMarket") || "all";
+    this.timeFrame = localStorage.getItem(this.STORAGE_BB_TIMEFRAME) || "30m";
+    this.exchange = localStorage.getItem(this.STORAGE_BB_EXCHANGE) || "all";
+    this.market = localStorage.getItem(this.STORAGE_BB_MARKET) || "all";
 
-    localStorage.setItem("bbTimeFrame", this.timeFrame);
-    localStorage.setItem("bbExchange", this.exchange);
-    localStorage.setItem("bbMarket", this.market);
+    localStorage.setItem(this.STORAGE_BB_TIMEFRAME, this.timeFrame);
+    localStorage.setItem(this.STORAGE_BB_EXCHANGE, this.exchange);
+    localStorage.setItem(this.STORAGE_BB_MARKET, this.market);
 
     // this.getEvoBollingerBands();
     this.initializeWebSocketConnection();
@@ -88,11 +95,17 @@ export class BollingerBandStreamComponent implements OnInit, OnDestroy {
           let sbb: StreamingBollingerBand = JSON.parse(message.body);
           if(sbb.U.includes("true")) {
             that.upperMap.set(sbb.s, sbb);
-            // console.log(that.upperMap.size);
+            // console.log('upperMap.size=' + that.upperMap.size);
+            
+            console.clear();
+            console.log("sbb=" + JSON.stringify(sbb));
           }
           else if(sbb.L.includes("true")) {
             that.lowerMap.set(sbb.s, sbb);
-            // console.log(that.lowerMap.size);
+            // console.log('lowerMap.size='+ that.lowerMap.size);
+
+            console.clear();
+            console.log("sbb=" + JSON.stringify(sbb));
           }
           else {
             that.upperMap.delete(sbb.s);
@@ -101,6 +114,9 @@ export class BollingerBandStreamComponent implements OnInit, OnDestroy {
 
           that.lowersbb = Array.from(that.lowerMap.values()).sort( (a, b) => { return -that.compareStrNumber(a.p, b.p) });
           that.uppersbb = Array.from(that.upperMap.values()).sort( (a, b) => { return -that.compareStrNumber(a.p, b.p) });
+
+          // console.log("uppersbb.length=" + that.uppersbb.length);
+          // console.log("lowersbb.length=" + that.lowersbb.length);
         }
       });
     });
@@ -113,21 +129,21 @@ export class BollingerBandStreamComponent implements OnInit, OnDestroy {
   }
 
   changeTimeFrame() {
-    localStorage.setItem("bbTimeFrame", this.timeFrame);
+    localStorage.setItem(this.STORAGE_BB_TIMEFRAME, this.timeFrame);
     this.closeWebSocketConnection();
     // this.getEvoBollingerBands();
     this.initializeWebSocketConnection();
   }
 
   changeExchange() {
-    localStorage.setItem("bbExchange", this.exchange);
+    localStorage.setItem(this.STORAGE_BB_EXCHANGE, this.exchange);
     this.closeWebSocketConnection();
     // this.getEvoBollingerBands();
     this.initializeWebSocketConnection();
   }
 
   changeMarket() {
-    localStorage.setItem("bbMarket", this.market);
+    localStorage.setItem(this.STORAGE_BB_MARKET, this.market);
     // this.closeWebSocketConnection();
     // this.getEvoBollingerBands();
     // this.initializeWebSocketConnection();
@@ -167,6 +183,9 @@ export class BollingerBandStreamComponent implements OnInit, OnDestroy {
   }
 
   compareStrNumber(a: string, b: string): number {
+    if(a === null || b === null)
+      return 0;
+
     let ia = a.indexOf(".");
     let ib = b.indexOf(".");
     if (ia > ib)

@@ -1,0 +1,23 @@
+
+.page-header {
+    margin-bottom: 0px;
+}
+
+#img-center {
+    background: url("../../assets/evoteam.png") no-repeat center center;
+    /* width: 100px;
+    height: 100px; */
+}
+
+.row-equal {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+    flex-wrap: wrap;
+}
+
+.row-equal > [class*='col-equal'] {
+    display: flex;
+    flex-direction: column;
+}

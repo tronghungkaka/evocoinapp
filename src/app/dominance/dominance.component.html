@@ -8,10 +8,14 @@
             <option value="1d">TimeFrame: 1 day</option>
             <option value="1w">TimeFrame: 1 week</option>
         </select> -->
-        <select [(ngModel)]="exchange" (ngModelChange)="changeExchange()">
-            <option value="all">Exchange: All</option>
-            <option value="binance">Exchange: Binance</option>
-        </select>
+
+        <div class="input-group">
+            <span class="input-group-addon">Exchange</span>
+            <select [(ngModel)]="exchange" (ngModelChange)="changeExchange()" class="form-control">
+                <option value="all">all</option>
+                <option value="binance">binance</option>
+            </select>
+        </div>
         <!-- <select [(ngModel)]="market" (ngModelChange)="changeMarket()">
             <option value="all">Market: All</option>
             <option value="btc">Market: /BTC</option>
@@ -22,7 +26,7 @@
         <!-- Last updated: {{ lastUpdated | date:'yyyy-MM-dd HH:mm a z':'+0900'}} -->
 
         <div class="input-group" style="float: right;">
-            <input type="text" [(ngModel)]="searchSymbol" class="form-control" placeholder="symbol">
+            <input type="text" [(ngModel)]="searchSymbol" class="form-control" placeholder="symbol" (keyup.enter)="search()">
             <div class="input-group-btn">
                 <button class="btn btn-default" (click)="search()">
                     <i class="glyphicon glyphicon-search"></i>

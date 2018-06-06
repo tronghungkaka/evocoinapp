@@ -1,0 +1,83 @@
+<div class="page-header" style="margin-top: 10px">
+    <div class="row row-equal">
+        <div class="col-md-2 col-equal">
+            <!-- <a [routerLink]="['/home']" class="btn btn-link"> -->
+                <img width="96" style="border: 0px; cursor: pointer;" class="img-thumbnail center-block" src="../../assets/evoteam.png" (click)="goto('home')" alt="Evo Team">
+            <!-- </a> -->
+        </div>
+        <div class="col-md-8 col-equal">
+            <a href="https://www.binance.com/register.html?ref=11597181" target="_blank">
+                <img src="../../assets/binance-register-banner.jpg" width="100%" height="100" max-width="100%">
+            </a>
+        </div>
+        <div class="col-md-2 col-equal">
+            <div class="row">
+                <div class="row">
+                    <div *ngIf="!currentUser" class="col-md-12" style="float: right;">
+                        <ul class="btn btn-success">
+                            <li><a [routerLink]="['/package']"><h4 style="color: white">Đăng ký</h4></a></li>
+                        </ul>
+                        <ul class="btn btn-success">
+                            <li><a [routerLink]="['/login']"><h4 style="color: white">Đăng nhập</h4></a></li>
+                        </ul>
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div *ngIf="currentUser" class="dropdown col-md-8">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <!-- <img src="../assets/240x320-trader-avatar.jpg" class="img-thumbnail" width="50" height="50" class="img-rounded" alt="Trader avatar"> -->
+                            <ul class="btn btn-success">
+                                <li><a href="#"><h4 style="color: white">{{currentUser.username}}</h4></a></li>
+                            </ul>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#"></a>
+                            </li>
+                            <!-- <li *ngIf="currentUser">
+                                <a href="#">{{currentUser.username}}</a>
+                            </li> -->
+                            
+                            <li class="divider"></li>
+                            
+                            <li *ngIf="currentUser && isRoot">
+                                <a [routerLink]="['/dasboard']" class="btn btn-link" style="text-align: left;">Dasboard</a>
+                            </li>
+                            <li *ngIf="currentUser && isAdmin">
+                                <a [routerLink]="['/payment-package-dasboard']" class="btn btn-link" style="text-align: left;">Payment dasboard</a>
+                            </li>
+                            <li *ngIf="currentUser">
+                                <a [routerLink]="['/payment-detail']" class="btn btn-link" style="text-align: left;">Payment detail</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/package']" class="btn btn-link" style="text-align: left;">Packages</a>
+                            </li>
+                            <!-- <li *ngIf="currentUser">
+                                <a [routerLink]="['/update']" class="btn btn-link" style="text-align: left;">Settings</a>
+                            </li> -->
+                            <li *ngIf="currentUser">
+                                <a [routerLink]="['/login']" class="btn btn-link" style="text-align: left;">Log out</a>
+                            </li>
+                            <li *ngIf="!currentUser">
+                                <a [routerLink]="['/login']" class="btn btn-link" style="text-align: left;">Log in</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div *ngIf="currentUser" class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4"><a [routerLink]="['/package']" style="bottom: 0px;"><h5>Đăng ký</h5></a></div>
+                            <div class="col-md-4"><a [routerLink]="['/login']" style="bottom: 0px;"><h5>Đăng xuất</h5></a></div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

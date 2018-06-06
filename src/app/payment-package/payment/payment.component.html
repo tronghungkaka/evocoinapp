@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="jumbotron" style="text-align: center; color: red;">
+        <h2>Tài khoản của bạn đã được tạo thành công, vui lòng thực hiện thanh toán để kích hoạt và bắt đầu sử dụng</h2>
+    </div>
+
+    <h1 style="text-align: center" [ngStyle]="{'color': color}">{{packagefullname}}</h1>
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-offset-2 col-sm-2" for="money">Số BTC thanh toán:</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="money" value="{{packagebitcoin}} BTC/tháng" readonly>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-offset-2 col-sm-2" for="bankaccount">Địa chỉ nhận BTC:</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="bankaccount" value="1ihNR1kQdbvCwRdMX6ErW8BoZdjPqHxJa" readonly>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-offset-2 col-sm-2" for="content">Transaction ID:</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="content" [(ngModel)]="transactionId" [ngModelOptions]="{standalone: true}" value="" placeholder="transaction id" required>
+            </div>
+        </div>
+
+        <!-- <div class="form-group">
+            <label class="control-label col-sm-offset-2 col-sm-2" for="bankaccountnumber">Số tài khoản:</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="bankaccountnumber" value="4687794318684846" readonly>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-sm-offset-2 col-sm-2" for="bankbrand">Chi nhánh:</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="bankbrand" value="Hà Đông" readonly>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-offset-2 col-sm-2" for="bank">Tên ngân hàng:</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="bank" value="Vietcombank - VCB" readonly>
+            </div>
+        </div> -->
+    </form>
+
+    <div class="row">
+        <div class="alert alert-danger col-sm-offset-2 col-sm-8" style="text-align: center;">
+            <!-- <strong>Quan trọng!</strong> Nội dung chuyển khoản phải đúng theo yêu cầu để tránh gây tranh chấp phát sinh.
+            <br> -->
+            <strong>*Bắt buộc*:</strong> Sau khi thực hiện chuyển khoản, vui lòng click vào nút "Tôi đã thanh toán" để xác nhận 
+        </div>
+    </div>
+
+    <div class="row">
+        <div style="text-align: center">
+            <button type="button" class="btn btn-success" [disabled]="!transactionId" (click)="createPayment()">Tôi đã thanh toán</button>
+        </div>
+    </div>
+</div>

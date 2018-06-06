@@ -7,9 +7,10 @@
             <ul class="list-inline">
                 <li>{{user.username}} ({{user.firstName}} {{user.lastName}}) - </li>
                 <!-- <li><a style="cursor: pointer;" (click)="deleteUser(user.id)">Detail</a></li> -->
+                <li><a style="cursor: pointer;" (click)="detailUser(user.id)">Detail</a></li>
                 <li><a style="cursor: pointer;" (click)="deleteUser(user.id)">Delete</a></li>
             </ul>
         </li>
     </ul>
-    <p><a [routerLink]="['/register']">Create User</a></p>
+    <!-- <p><a [routerLink]="['/register']">Create User</a></p> -->
 </div>

@@ -1,0 +1,128 @@
+.package {
+    box-shadow: 0 0 10px gray;
+    padding: 5px;
+    height: 100%;
+}
+
+ul {
+    display: block;
+    list-style-type: none;
+    margin-top: 1em;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+ul li {
+    margin-bottom: 1em;
+}
+/* 
+.row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+    flex-wrap: wrap;
+}
+
+.row > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+} */
+
+
+
+/* .blinking-cursor */
+.blinking-cursor {
+  font-weight: 100;
+  font-size: 30px;
+  color: #2E3D48;
+  -webkit-animation: 1s blink step-end infinite;
+  -moz-animation: 1s blink step-end infinite;
+  -ms-animation: 1s blink step-end infinite;
+  -o-animation: 1s blink step-end infinite;
+  animation: 1s blink step-end infinite;
+}
+
+@keyframes blink {
+  from, to {
+    opacity: 0.1;
+    filter: alpha(opacity=10); /* For IE8 and earlier */
+  }
+  50% {
+    opacity: 1;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
+  }
+}
+
+@-moz-keyframes blink {
+    from, to {
+      opacity: 0.1;
+      filter: alpha(opacity=10); /* For IE8 and earlier */
+    }
+    50% {
+      opacity: 1;
+      filter: alpha(opacity=100); /* For IE8 and earlier */
+    }
+}
+
+@-webkit-keyframes blink {
+    from, to {
+      opacity: 0.1;
+      filter: alpha(opacity=10); /* For IE8 and earlier */
+    }
+    50% {
+      opacity: 1;
+      filter: alpha(opacity=100); /* For IE8 and earlier */
+    }
+}
+
+@-ms-keyframes blink {
+    from, to {
+      opacity: 0.1;
+      filter: alpha(opacity=10); /* For IE8 and earlier */
+    }
+    50% {
+      opacity: 1;
+      filter: alpha(opacity=100); /* For IE8 and earlier */
+    }
+}
+
+@-o-keyframes blink {
+    from, to {
+      opacity: 0.1;
+      filter: alpha(opacity=10); /* For IE8 and earlier */
+    }
+    50% {
+      opacity: 1;
+      filter: alpha(opacity=100); /* For IE8 and earlier */
+    }
+}
+
+/* END: blinking-cursor */
+
+/* color animation */
+.red-yellow-animation {
+  color: red;
+  -webkit-animation-name: redyellow; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+
+  animation-name: redyellow;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes redyellow {
+  from {color: red}
+  to {color: red}
+  50% {color: yellow}
+}
+
+/* Standard syntax */
+@keyframes redyellow {
+  from {color: red}
+  to {color: red}
+  50% {color: yellow}
+}
+
+

@@ -1,0 +1,16 @@
+<div class="container-fluid custom-modal-container">
+    <div class="row custom-modal-header">
+        <div class="col-sm-12">
+            <h1>{{context.head_mess}}</h1>
+        </div>
+    </div>
+    <div class="row" [ngClass]="{'myclass' : shouldUseMyClass}" style="text-align: center">
+        <div class="col-xs-12">
+            <h1>{{context.content_mess}}</h1>
+            <div class="inline">
+                <button type="button" class="btn btn-success" (click)="ok()">OK</button>
+                <button type="button" class="btn btn-success" (click)="cancel()">CANCEL</button>
+            </div>
+        </div>
+    </div>
+</div>

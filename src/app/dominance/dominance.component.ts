@@ -1,11 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { DominanceService } from "../binance/api/client/services/dominance.service";
+import { DominanceService } from "../services/dominance.service";
 import { Dominance } from "../objects/dominance";
 
 @Component({
     templateUrl: './dominance.component.html',
     styleUrls: ['./dominance.component.css']
 })
+// real cash flow
 export class DominanceComponent implements OnInit {
     title: "Dominance";
 
@@ -30,7 +31,7 @@ export class DominanceComponent implements OnInit {
         this.dominanceService.getDominances(this.exchange).subscribe(
             data => {
                this.dominances = data.sort( (a, b) => { return this.compareStrNumber(a._24hr_quote_volume, b._24hr_quote_volume) });
-               console.log(JSON.stringify(this.dominances));
+              //  console.log(JSON.stringify(this.dominances));
             }
         );
         // var dominance = new Dominance();
@@ -136,7 +137,7 @@ export class DominanceComponent implements OnInit {
     this.dominanceService.getDominance(this.searchSymbol, this.exchange).subscribe(
       data => {
          this.dominances = data.sort( (a, b) => { return this.compareStrNumber(a._24hr_quote_volume, b._24hr_quote_volume) });
-         console.log(JSON.stringify(this.dominances));
+        //  console.log(JSON.stringify(this.dominances));
       }
     );
   }

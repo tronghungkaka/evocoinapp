@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Service } from '../../binance/api/client/services/service';
+import { Service } from '../../services/service';
 import { CoinmarketcapTicker } from '../object/coinmarketcap-ticker.component';
 import { CoinmarketcapGlobalData } from '../object/coinmarketcap-global-data.component';
 

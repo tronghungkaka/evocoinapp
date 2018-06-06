@@ -1,0 +1,52 @@
+<div class="container-fluid custom-modal-container" style="text-align: center">
+    <div class="row custom-modal-header">
+        <div class="col-sm-12">
+            <h1>{{context.head_mess}}</h1>
+        </div>
+    </div>
+    <div class="row" [ngClass]="{'myclass' : shouldUseMyClass}">
+        <div class="col-xs-12">
+            <h1>{{context.content_mess}}</h1>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Creater</th>
+                            <th>Created Date</th>
+                            <!-- <th>Send Money</th> -->
+                            <th>Payment Package</th>
+                            <!-- <th>Received Money</th> -->
+                            <th>Transaction Id</th>
+                            <th>Confirmed Date</th>
+                            <th>Confirmer</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let payment of unconfirmedPayments; let i = index">
+                            <td>{{i}}</td>
+                            <td>{{context.creater.username}}</td>
+                            <td>{{payment.createdTimestamp | date: 'short'}}</td>
+                            <!-- <td>{{payment.sendMoney}}</td> -->
+                            <td>{{payment.paymentPackage}}</td>
+                            <!-- <td><input [(ngModel)]="payment.receivedMoney"></td> -->
+                            <td>{{payment.transactionId}}</td>
+                            <td>{{today | date: 'short'}}</td>
+                            <td>{{confirmer.username}}</td>
+                            <td><button [disabled]="payment.confirmedUserId" type="button" class="btn btn-success" (click)="confirm(payment)">confirm</button></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr></tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="inline">
+                <button type="button" class="btn btn-success" (click)="close()">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>

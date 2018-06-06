@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BollingerBandResponse } from '../objects/bollinger-band-response';
-import { BollingerBandService } from '../binance/api/client/services/bollinger-band.service';
+import { BollingerBandService } from '../services/bollinger-band.service';
 
 @Component({
   selector: 'app-bollinger-band',

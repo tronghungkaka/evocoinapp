@@ -1,36 +1,5 @@
-<div class="container-fluid">
-    <div class="page-header">
-        <div class="row">
-            <div class="col-md-2">
-                <img width="96" style="border: 0px" class="img-thumbnail" src="../../assets/evoteam.png" alt="Evo Team">
-
-            </div>
-            <div class="col-md-8">
-
-            </div>
-            <div class="col-md-2">
-
-                <div class="dropdown" style="float: right;">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="../assets/240x320-trader-avatar.jpg" class="img-thumbnail" width="50" height="50" class="img-rounded"
-                            alt="Trader avatar">
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#"></a></li>
-                        <!-- <li>
-                            <a [routerLink]="['/dasboard']" class="btn btn-link" style="text-align: left;">Dasboard</a>
-                        </li> -->
-                        <li>
-                            <a [routerLink]="['/update']" class="btn btn-link" style="text-align: left;">Settings</a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['/login']" class="btn btn-link" style="text-align: left;">Log out</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container-fluid main-content">
+    <app-header></app-header>
 
     <nav class="navbar navbar-inverse" style="margin-bottom: 0px;">
         <div class="container-fluid">
@@ -41,10 +10,35 @@
                 <!-- <li><a routerLink="/trendline">Trendline</a></li> -->
                 <!-- <li><a routerLink="/rsi">RSI</a></li> -->
                 <li>
-                    <a routerLink="/bollingerbandstream">Bollinger band</a>
+                    <a routerLink="/bollingerbandstream">Bollinger Band</a>
                 </li>
                 <li>
-                    <a routerLink="/realcashflow">Real cash flow</a>
+                    <a routerLink="/realcashflow">Real Cash Flow</a>
+                </li>
+                <li>
+                    <!-- <a routerLink="/telegram">Telegram</a> -->
+                    <a href="https://t.me/luongsonbac" target="_blank">Telegram</a>
+                </li>
+                <li>
+                    <a routerLink="/guide">Hướng Dẫn Sử Dụng</a>
+                </li>
+                <li>
+                    <a routerLink="/classinfomation">Thông Tin Class</a>
+                </li>
+                <li>
+                    <a href="https://tintuc.evommo.com" target="_blank">Tin Tức</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav" style="float: right;">
+                <li>
+                    <a href="https://www.facebook.com/groups/369855803470974/" target="_blank">Group</a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/evocrypto/" target="_blank">Fanpage</a>
+                </li>
+                <li>
+                    <a href="https://tintuc.evommo.com/" target="_blank">Website</a>
                 </li>
             </ul>
         </div>
@@ -57,9 +51,11 @@
             <router-outlet></router-outlet>
         </div>
         <div class="col-md-2 col-sm-0" id="myScrollspy">
-            <app-leftside-bar></app-leftside-bar>
+            <app-rightside-bar></app-rightside-bar>
         </div>
     </div>
+
+    <app-footer></app-footer>
 </div>
 
 <!-- 

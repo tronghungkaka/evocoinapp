@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { User } from '../_models';
+import * as AppUtils from '../../utils/app.utils';
 
 @Injectable()
 export class AdminAuthGuard implements CanActivate {
@@ -8,14 +9,20 @@ export class AdminAuthGuard implements CanActivate {
     constructor(private router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        // console.log("canActive - " + localStorage.getItem('currentUser'));
-        let user: User = JSON.parse(localStorage.getItem('currentUser'));
-        if (user && user.role >= 5) {
-            // logged in so return true
-            return true;
+        // console.log("canActive - " + localStorage.getItem(AppUtils.STORAGE_ACCOUNT));
+        let user: User = JSON.parse(localStorage.getItem(AppUtils.STORAGE_ACCOUNT));
+        if (!user) {
+            // not logged in so redirect to login page with the return url
+            this.router.navigate(['login'], { queryParams: { returnUrl: state.url }});
+            return false;
         }
-        // not logged in so redirect to login page with the return url
-        this.router.navigate(['login'], { queryParams: { returnUrl: state.url }});
-        return false;
+        if (user.role >= AppUtils.ADMIN_ROLE) {
+            // logged in and role is right
+            return true;
+        } else {
+            // role is low, back to home
+            this.router.navigate(['home'], { queryParams: { returnUrl: state.url }});
+            return false;
+        }
     }
 }

@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    
+    <div class="well form-inline" style="background-color: white; border: 0px; padding-left: 0px; margin-bottom: 0px;">
+        <div class="input-group">
+            <span class="input-group-addon">Account Filter</span>
+            <select [(ngModel)]="account_filter" (ngModelChange)="filter_account()" class="form-control">
+                <option value="all">all</option>
+                <option value="expired">expired</option>
+                <option value="trial">trial</option>
+                <option value="pending">pending</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon">Package Filter</span>
+            <select [(ngModel)]="package_filter" (ngModelChange)="filter_package()" class="form-control">
+                <option value="all">all</option>
+                <option value="free">free</option>
+                <option value="gold">gold</option>
+                <option value="diamond">diamond</option>
+                <option value="supervip">supervip</option>
+            </select>
+        </div>
+
+        <!-- <div class="input-group" style="float: right;">
+        </div> -->
+        <div class="input-group" style="float: right;">
+            <!-- <div class="input-group">
+                <select [(ngModel)]="searchBy" (ngModelChange)="search_by()" class="form-control">
+                    <option value="username">username</option>
+                    <option value="transaction-id">transaction id</option>
+                </select>
+            </div> -->
+            <!-- <input *ngIf="isSearchByUsername()" type="text" [(ngModel)]="search_username" class="form-control" placeholder="username" (keyup.enter)="search_account()"> -->
+            <input *ngIf="isSearchByTransactionId()" type="text" [(ngModel)]="search_transaction_id" class="form-control" placeholder="transaction id" (keyup.enter)="search_account()">
+            
+            <div class="input-group-btn">
+                <button class="btn btn-default" (click)="search_account()">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Full Name</th>
+                    <th>Username</th>
+                    <th>Package</th>
+                    <th>Is Expired</th>
+                    <th>Is Trial</th>
+                    <th>Is Payment Pending</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let account of accounts | accountfilter: package_filter: account_filter; let i = index">
+                    <td>{{i}}</td>
+                    <td>{{account.fullName}}</td>
+                    <td>{{account.username}}</td>
+                    <td>{{getPackageName(account.role)}}</td>
+                    <td>{{account.isExpired}}</td>
+                    <td>{{account.isFreeTrial}}</td>
+                    <td>{{account.isPaymentPending}}</td>
+                    <td>
+                        <button [disabled]="!account.isPaymentPending" type="button" class="btn btn-success" (click)="confirm_payment(account)">Xác nhận thanh toán</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

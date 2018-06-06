@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Creater</th>
+                    <th>Created Date</th>
+                    <!-- <th>Send Money</th> -->
+                    <th>Payment Package</th>
+                    <th>Transaction ID</th>
+                    <!-- <th>Received Money</th> -->
+                    <th>Confirmed Date</th>
+                    <th>Confirmer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let payment of payments; let i = index">
+                    <td>{{i}}</td>
+                    <td>{{creater.username}}</td>
+                    <td>{{payment.createdTimestamp | date: 'short'}}</td>
+                    <!-- <td>{{payment.sendMoney}}</td> -->
+                    <td>{{payment.paymentPackage}}</td>
+                    <td>{{payment.transactionId}}</td>
+                    <!-- <td>{{payment.receivedMoney}}</td> -->
+                    <td>{{payment.confirmedTimestamp | date: 'short'}}</td>
+                    <td>{{confirmers[i].username}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

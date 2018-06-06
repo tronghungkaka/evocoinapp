@@ -1,0 +1,53 @@
+<div class="col-md-6 col-md-offset-3">
+    <h2>Update</h2>
+    <form name="form" (ngSubmit)="f.form.valid && update()" #f="ngForm" novalidate>
+        <!-- <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !firstName.valid" class="help-block">First Name is required</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>
+        </div> -->
+        
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fullName.valid }">
+            <label for="fullName">Full Name</label>
+            <input type="text" class="form-control" name="fullName" [(ngModel)]="model.fullName" #fullName="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !fullName.valid" class="help-block">Full Name is required</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" autocomplete="off" readonly required />
+            <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !role.valid }">
+            <label for="role">Role</label>
+            <input type="role" class="form-control" name="role" [(ngModel)]="model.role" #role="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !role.valid" class="help-block">Role is required</div>
+        </div>
+        <!-- <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !newPassword.valid }">
+            <label for="newPassword">New Password</label>
+            <input type="newPassword" class="form-control" name="newPassword" [(ngModel)]="model.newPassword" #newPassword="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !newPassword.valid" class="help-block">New password is required</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !confirmNewPassword.valid }">
+            <label for="confirmNewPassword">Confirm New Password</label>
+            <input type="confirmNewPassword" class="form-control" name="confirmNewPassword" [(ngModel)]="model.confirmNewPassword" #confirmNewPassword="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !confirmNewPassword.valid" class="help-block">Confirm new password is required</div>
+        </div> -->
+
+        <!-- <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !role.valid }">
+            <label for="role">Role</label>
+            <input type="role" class="form-control" name="role" [(ngModel)]="model.role" #role="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !role.valid" class="help-block">Role is required</div>
+        </div> -->
+
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Update</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <a [routerLink]="['/dasboard']" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
+</div>
