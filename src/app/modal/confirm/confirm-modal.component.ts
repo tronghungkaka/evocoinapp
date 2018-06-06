@@ -3,6 +3,8 @@ import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import { ModalComponent, DialogRef, CloseGuard} from 'angular2-modal';
 
 export class ConfirmModalContext extends BSModalContext {
+    head_mess: string;
+    content_mess: string;
     constructor(head_mess: string, content_mess: string) {
         super();
     }

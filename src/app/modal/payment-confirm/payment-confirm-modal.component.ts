@@ -10,7 +10,10 @@ import * as AppUtils from '../../utils/app.utils';
 import { EmailService } from '../../payment-package/_services/email.service';
 
 export class PaymentConfirmModalContext extends BSModalContext {
-    constructor(head_mess: string, content_mess: string, public creater: User) {
+    head_mess: string;
+    content_mess: string;
+    creater: User;
+    constructor(head_mess: string, content_mess: string, creater: User) {
         super();
     }
 }

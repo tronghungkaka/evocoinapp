@@ -6,6 +6,8 @@ import * as AppUtils from '../../utils/app.utils';
 import { Router } from '@angular/router';
 
 export class UpgradeModalContext extends BSModalContext {
+    head_mess: string;
+    content_mess: string;
     constructor(head_mess: string, content_mess: string) {
         super();
     }
