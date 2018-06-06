@@ -24,6 +24,7 @@ export class PackageDetailComponent implements OnInit {
 
     personal_error: string;
     account_error: string;
+    error: boolean;
 
     registered_email_error: boolean = null;
     registered_phone_error: boolean = null;

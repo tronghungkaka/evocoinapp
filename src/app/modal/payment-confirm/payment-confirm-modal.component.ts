@@ -29,10 +29,10 @@ export class PaymentConfirmModalComponent implements CloseGuard, ModalComponent<
     public result: boolean;
     public shouldUseMyClass: string;
 
-    private unconfirmedPayments: Payment[];
-    private confirmer: User;
+    public unconfirmedPayments: Payment[];
+    public confirmer: User;
 
-    private today: number = Date.now();
+    public today: number = Date.now();
 
     constructor(private userService: UserService,
         private paymentService: PaymentService, 
