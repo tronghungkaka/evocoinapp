@@ -137,7 +137,10 @@ export class PackageDetailComponent implements OnInit {
                     // console.log(JSON.stringify(res));
                     localStorage.setItem(AppUtils.STORAGE_ACCOUNT, JSON.stringify(res));
                     this.authenticationService.loggedInOutEvent.emit('created account');
-                    this.router.navigate(['payment', this.packagename]);
+                    if (this.packagename === AppUtils.FREE_PACKAGE)
+                        this.router.navigate(['home']);
+                    else 
+                        this.router.navigate(['payment', this.packagename]);
                 }
             }
         );
