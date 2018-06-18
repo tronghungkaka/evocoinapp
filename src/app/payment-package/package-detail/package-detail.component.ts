@@ -135,7 +135,7 @@ export class PackageDetailComponent implements OnInit {
             res => {
                 if (res) {
                     // console.log(JSON.stringify(res));
-                    localStorage.setItem(AppUtils.STORAGE_ACCOUNT, JSON.stringify(res));
+                    sessionStorage.setItem(AppUtils.STORAGE_ACCOUNT, JSON.stringify(res));
                     this.authenticationService.loggedInOutEvent.emit('created account');
                     if (this.packagename === AppUtils.FREE_PACKAGE)
                         this.router.navigate(['home']);

@@ -32,7 +32,7 @@ export class UpdateComponent implements OnInit {
                     }
                 );
             } else {
-                this.currentUser = JSON.parse(localStorage.getItem(AppUtils.STORAGE_ACCOUNT));
+                this.currentUser = JSON.parse(sessionStorage.getItem(AppUtils.STORAGE_ACCOUNT));
                 console.log(JSON.stringify(this.currentUser));                
                 this.model = this.currentUser;
             }

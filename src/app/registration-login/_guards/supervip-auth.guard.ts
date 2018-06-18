@@ -15,8 +15,8 @@ export class SupervipAuthGuard implements CanActivate {
 
     
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        // console.log("canActive - " + localStorage.getItem(AppUtils.STORAGE_ACCOUNT));
-        let user: User = JSON.parse(localStorage.getItem(AppUtils.STORAGE_ACCOUNT));
+        // console.log("canActive - " + sessionStorage.getItem(AppUtils.STORAGE_ACCOUNT));
+        let user: User = JSON.parse(sessionStorage.getItem(AppUtils.STORAGE_ACCOUNT));
         let content_mess;
         let head_mess;
         let isShowModal = false;

@@ -25,7 +25,7 @@ export class PaymentDetailComponent {
                 res => this.creater = res
             );
         } else {
-            this.creater = JSON.parse(localStorage.getItem(AppUtils.STORAGE_ACCOUNT));
+            this.creater = JSON.parse(sessionStorage.getItem(AppUtils.STORAGE_ACCOUNT));
         }
 
         this.paymentService.getAllPaymentsByCreater(this.creater.id).subscribe(

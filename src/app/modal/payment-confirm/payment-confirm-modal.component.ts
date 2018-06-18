@@ -51,7 +51,7 @@ export class PaymentConfirmModalComponent implements CloseGuard, ModalComponent<
                 // });
             }
         )
-        this.confirmer = JSON.parse(localStorage.getItem(AppUtils.STORAGE_ACCOUNT));
+        this.confirmer = JSON.parse(sessionStorage.getItem(AppUtils.STORAGE_ACCOUNT));
     }
 
     beforeClose(): boolean {

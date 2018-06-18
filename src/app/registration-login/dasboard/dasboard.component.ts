@@ -16,7 +16,7 @@ export class DasboardComponent implements OnInit {
     users: User[] = [];
 
     constructor(private router: Router, private userService: UserService) {
-        this.currentUser = JSON.parse(localStorage.getItem(AppUtils.STORAGE_ACCOUNT));
+        this.currentUser = JSON.parse(sessionStorage.getItem(AppUtils.STORAGE_ACCOUNT));
     }
 
     ngOnInit() {

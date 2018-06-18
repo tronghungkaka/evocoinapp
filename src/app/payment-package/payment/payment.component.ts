@@ -51,7 +51,7 @@ export class PaymentComponent {
             this.color = AppUtils.SUPERVIP_PACKAGE_COLOR;
         }
 
-        this.currentUser = JSON.parse(localStorage.getItem(AppUtils.STORAGE_ACCOUNT));
+        this.currentUser = JSON.parse(sessionStorage.getItem(AppUtils.STORAGE_ACCOUNT));
     }
 
     createPayment() {
@@ -60,7 +60,7 @@ export class PaymentComponent {
         this.userService.createPayment(this.currentUser).subscribe(
             res => {
                 if (res) {
-                    localStorage.setItem(AppUtils.STORAGE_ACCOUNT, JSON.stringify(this.currentUser))
+                    sessionStorage.setItem(AppUtils.STORAGE_ACCOUNT, JSON.stringify(this.currentUser))
                 }
             }
         );

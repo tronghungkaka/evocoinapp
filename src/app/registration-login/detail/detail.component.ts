@@ -31,7 +31,7 @@ export class DetailComponent implements OnInit {
                     }
                 );
             } else {
-                // this.currentUser = JSON.parse(localStorage.getItem(AppUtils.STORAGE_ACCOUNT));
+                // this.currentUser = JSON.parse(sessionStorage.getItem(AppUtils.STORAGE_ACCOUNT));
                 // this.model = this.currentUser;
             }
         }

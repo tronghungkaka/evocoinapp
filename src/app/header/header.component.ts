@@ -25,7 +25,7 @@ export class HeaderComponent {
     }
 
     preInit() {
-        this.currentUser = JSON.parse(localStorage.getItem(AppUtils.STORAGE_ACCOUNT));
+        this.currentUser = JSON.parse(sessionStorage.getItem(AppUtils.STORAGE_ACCOUNT));
         if (this.currentUser) {
             this.isRoot = AppUtils.Utilities.isRoot(this.currentUser);
             this.isAdmin = AppUtils.Utilities.isAdmin(this.currentUser);

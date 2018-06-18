@@ -25,7 +25,7 @@ export class AuthenticationService {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     let currentUser = AppUtils.Utilities.setUser(user);
                     
-                    localStorage.setItem(AppUtils.STORAGE_ACCOUNT, JSON.stringify(currentUser));
+                    sessionStorage.setItem(AppUtils.STORAGE_ACCOUNT, JSON.stringify(currentUser));
                     
                     // console.log(JSON.stringify(user))
                     // console.log(JSON.stringify(currentUser))
@@ -38,7 +38,7 @@ export class AuthenticationService {
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem(AppUtils.STORAGE_ACCOUNT);
+        sessionStorage.removeItem(AppUtils.STORAGE_ACCOUNT);
         this.loggedInOutEvent.emit('logged out');
     }
 }

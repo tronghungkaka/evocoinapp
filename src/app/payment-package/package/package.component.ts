@@ -36,6 +36,6 @@ export class PackageComponent {
     ];
 
     constructor() {
-        this.currentUser = JSON.parse(localStorage.getItem(AppUtils.STORAGE_ACCOUNT));
+        this.currentUser = JSON.parse(sessionStorage.getItem(AppUtils.STORAGE_ACCOUNT));
     }
 }
